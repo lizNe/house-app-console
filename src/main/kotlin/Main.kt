@@ -5,6 +5,7 @@ import persistence.JSONSerializer
 import persistence.XMLSerializer
 import persistence.YAMLSerializer
 import utils.ScannerInput
+import utils.ScannerInput.readNextDouble
 import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
 import java.io.File
@@ -12,10 +13,10 @@ import java.io.File
 //Used to allow you to console log information to the console
 private val logger = KotlinLogging.logger {}
 
-//private val noteAPI = NoteAPI(XMLSerializer(File("notes.xml")))
+//private val houseAPI = HouseAPI(XMLSerializer(File("houses.xml")))
 
-private val noteAPI = NoteAPI(JSONSerializer(File("notes.json")))
-//private val noteAPI = NoteAPI(YAMLSerializer(File("notes.yaml")))
+private val houseAPI = HouseAPI(JSONSerializer(File("houses.json")))
+//private val houseAPI = HouseAPI(YAMLSerializer(File("houses.yaml")))
 
 
 //Will run the function runMenu() starting the entire application
@@ -74,18 +75,7 @@ fun addHouse() {
     val numberOfBedrooms = readNextInt("Enter the number of bedrooms in the house: ")
     val numberOfBathrooms = readNextDouble("Enter the number of bathrooms in the house: ")
     val houseSqFoot = readNextInt("Enter the square footage of the house: ")
-    val isAdded = houseAPI.add(
-        House(
-            houseCategory,
-            houseCost,
-            houseLocation,
-            isAvailableFrom,
-            isSold,
-            numberOfBedrooms,
-            numberOfBathrooms,
-            houseSqFoot
-        )
-    )
+    val isAdded = houseAPI.add(House(houseCategory, houseCost, houseLocation, isAvailableFrom, false, numberOfBedrooms,numberOfBathrooms, houseSqFoot ) )
 
     if (isAdded) {
         println("Add Successful")
@@ -96,7 +86,7 @@ fun addHouse() {
 }
 
 fun listHouses() {
-    if (houseAPI.numberOfNotes() > 0) {
+    if (houseAPI.numberOfHouses() > 0) {
         val option = readNextInt(
             """
                   > --------------------------------

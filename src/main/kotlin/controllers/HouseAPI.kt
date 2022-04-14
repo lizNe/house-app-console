@@ -8,7 +8,7 @@ class HouseAPI(serializerType: Serializer) {
     private var serializer = Serializer = serializerType
 
     fun add(house: House): Boolean{
-        return houses.addHouse(house)
+        return houses.add(house)
     }
 
    fun deleteHouse(indexToDelete: Int): House?{
@@ -53,4 +53,30 @@ fun numberOfSoldHouses(): Int = houses.count { house: House -> house.isSold }
 fun searchByCategory (searchString : String) =
     formatListString(
         houses.filter { house -> house.houseCategory.contains(searchString, ignoreCase = true) })
+
+
+
+fun isValidIndex(index: Int) :Boolean{
+    return isValidListIndex(index, houses);
+}
+
+@Throws(Exception::class)
+fun load() {
+    houses = serializer.read() as ArrayList<House>
+}
+
+@Throws(Exception::class)
+fun store() {
+    serializer.write(houses)
+}
+
+//    This function will format the way the string is printed to te screen so that it is cleaner rather than adding code to format your strings this method is called instead
+fun formatListString(housesToFormat : List<House>) : String =
+    housesToFormat
+        .joinToString (separator = "\n") { note ->
+            houses.indexOf(house).toString() + ": " + house.toString() }
+
+
+}
+
 

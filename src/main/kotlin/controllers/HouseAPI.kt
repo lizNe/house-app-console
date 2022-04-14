@@ -18,6 +18,7 @@ class HouseAPI(serializerType: Serializer) {
    }
 
 }
+
 //find the house object by the index number
 //if the house exists, use the house details passed as parameters to update the found house in the ArrayList.
 //if the house was not found, return false, indicating that the update was not successful

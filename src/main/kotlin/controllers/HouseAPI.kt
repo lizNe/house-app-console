@@ -1,11 +1,12 @@
 package controllers
 
 import models.House
+import persistence.Serializer
 
 //ArrayList called houses
 class HouseAPI(serializerType: Serializer) {
     private var houses = ArrayList<House>()
-    private var serializer = Serializer = serializerType
+    private var serializer: Serializer = serializerType
 
     fun add(house: House): Boolean{
         return houses.add(house)
@@ -17,7 +18,7 @@ class HouseAPI(serializerType: Serializer) {
        }else null
    }
 
-}
+
 
 //find the house object by the index number
 //if the house exists, use the house details passed as parameters to update the found house in the ArrayList.
@@ -56,6 +57,16 @@ fun searchByCategory (searchString : String) =
         houses.filter { house -> house.houseCategory.contains(searchString, ignoreCase = true) })
 
 
+fun numberOfHouses(): Int {
+    return houses.size
+}
+
+fun findHouse(index: Int): House? {
+    return if (isValidListIndex(index, houses)) {
+        houses[index]
+    } else null
+}
+
 
 fun isValidIndex(index: Int) :Boolean{
     return isValidListIndex(index, houses);
@@ -74,10 +85,11 @@ fun store() {
 //    This function will format the way the string is printed to te screen so that it is cleaner rather than adding code to format your strings this method is called instead
 fun formatListString(housesToFormat : List<House>) : String =
     housesToFormat
-        .joinToString (separator = "\n") { note ->
+        .joinToString (separator = "\n") { house ->
             houses.indexOf(house).toString() + ": " + house.toString() }
 
 
 }
+
 
 

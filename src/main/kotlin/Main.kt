@@ -32,7 +32,7 @@ fun runMenu() {
             2 -> listHouses()
             3 -> updateHouse()
             4 -> deleteHouse()
-            5 -> isHouseAvailable()
+            5 -> houseToBeSold()
             6 -> searchHouses()
             7 -> save()
             8 -> load()
@@ -143,6 +143,8 @@ fun updateHouse() {
     }
 }
 
+//only ask the user to choose the note to delete if notes exist
+//pass the index of the note to NoteAPI for deleting and check for success.
 fun deleteHouse(){
     listHouses()
     if(houseAPI.numberOfNotes()>0){
@@ -156,3 +158,60 @@ fun deleteHouse(){
     }
 }
 
+fun exitApp(){
+    println("Exiting the House Agent Application....Goodbye! ")
+}
+
+//Tries to save the save function in houseAPI. A throw catch is used so if the save() function doesn't work then an error will be thrown that is caught by the system to display
+// "Error writing to file: $e" to the user
+fun save() {
+    try {
+        houseAPI.store()
+    } catch (e: Exception) {
+        System.err.println("Error writing to file: $e")
+    }
+}
+
+//Tries to load the load function in noteAPI. A throw catch is used so if the load() fucntion doesnt work then an error will be thrown that is caught by the system to display
+// "Error reading from file: $e" to the user
+fun load() {
+    try {
+        noteAPI.load()
+    } catch (e: Exception) {
+        System.err.println("Error reading from file: $e")
+    }
+}
+
+//only ask the user to choose the note to archive if active notes exist
+//pass the index of the note to NoteAPI for archiving and check for success.
+fun houseToBeSold(){
+    listSoldHouses()
+    if(houseAPI.numberOfSoldHouse()>0){
+        val indexToSold = readNextInt("Enter the index of the house to display as Sold: ")
+        if(houseAPI.houseToBeSold(indexToSold)){
+            println("Sell Successful")
+        }else{
+            println("Sell Not Successful")
+        }
+    }
+}
+
+fun searchHouses(){
+    val searchCategory = readNextInt("Enter the category to search by: ")
+    val searchResults = houseAPI.searchByCategory(searchCategory)
+    if(searchResults.isEmpty()){
+        println("No Houses Found")
+    }else{
+        println(searchResults)
+    }
+}
+
+// calls the class houseAPI and calls the function listAllHouses() from this class and will print all the list of houses that are in the system
+fun listAllHouses() {
+    println(houseAPI.listAllHouses())
+}
+
+// calls the class houseAPI and calls the function listSoldHouses() from this class and will print all the archived houses that are in the system
+fun listSoldHouses() {
+    println(houseAPI.listSoldHouses())
+}

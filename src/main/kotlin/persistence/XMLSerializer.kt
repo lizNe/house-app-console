@@ -22,6 +22,7 @@ class XMLSerializer(private val file: File) : Serializer {
         return obj
     }
 
+
     @Throws(Exception::class)
     override fun write(obj: Any?) {
         val xStream = XStream(DomDriver())

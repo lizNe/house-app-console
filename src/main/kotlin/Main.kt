@@ -3,7 +3,7 @@ import models.House
 import mu.KotlinLogging
 import persistence.JSONSerializer
 import persistence.XMLSerializer
-import persistence.YAMLSerializer
+//import persistence.YAMLSerializer
 import utils.ScannerInput
 import utils.ScannerInput.readNextDouble
 import utils.ScannerInput.readNextInt
@@ -99,7 +99,7 @@ fun listHouses() {
         when (option) {
             1 -> listAllHouses();
             2 -> listSoldHouses();
-            else -> println("Invalid option entered: " + option)
+            else -> println("Invalid option entered: $option")
         }
     } else {
         println("Option Invalid - No notes stored")
@@ -122,7 +122,8 @@ fun updateHouse() {
             val houseSqFoot = readNextInt("Enter the square footage of the house to update: ")
 
             //pass the index of the house and the new house details to HouseAPI for updating and check for success.
-            if (houseAPI.updateHouse(indexToUpdate, House(houseCategory, houseCost, houseLocation, isAvailableFrom, isSold, numberOfBedrooms, numberOfBathrooms, houseSqFoot))) {
+           // To get the Boolean value in this constructor you have to type either true or false first and then the field will appear as below
+            if (houseAPI.updateHouse(indexToUpdate, House(houseCategory, houseCost, houseLocation, isAvailableFrom, false , numberOfBedrooms, numberOfBathrooms, houseSqFoot))) {
                 println("Update Successful")
             } else {
                 println("Update Failed")
@@ -137,11 +138,11 @@ fun updateHouse() {
 //pass the index of the note to NoteAPI for deleting and check for success.
 fun deleteHouse(){
     listHouses()
-    if(houseAPI.numberOfNotes()>0){
+    if(houseAPI.numberOfHouses()>0){
         val indexToDelete = readNextInt("Enter the index of the house to delete: ")
         val houseToDelete = houseAPI.deleteHouse(indexToDelete)
         if(houseToDelete != null){
-            println("Delete Successful! Deleted house: ${houseToDelete.house.category}")
+            println("Delete Successful! Deleted house: ${houseToDelete.houseCategory}")
         }else{
             println("Delete Not Successful")
         }
@@ -166,7 +167,7 @@ fun save() {
 // "Error reading from file: $e" to the user
 fun load() {
     try {
-        noteAPI.load()
+        houseAPI.load()
     } catch (e: Exception) {
         System.err.println("Error reading from file: $e")
     }
@@ -176,9 +177,9 @@ fun load() {
 //pass the index of the note to NoteAPI for archiving and check for success.
 fun houseToBeSold(){
     listSoldHouses()
-    if(houseAPI.numberOfSoldHouse()>0){
-        val indexToSold = readNextInt("Enter the index of the house to display as Sold: ")
-        if(houseAPI.houseToBeSold(indexToSold)){
+    if(houseAPI.numberOfSoldHouses()>0){
+        val indexToSell = readNextInt("Enter the index of the house to display as Sold: ")
+        if(houseAPI.houseToBeSold(indexToSell)){
             println("Sell Successful")
         }else{
             println("Sell Not Successful")
@@ -187,7 +188,7 @@ fun houseToBeSold(){
 }
 
 fun searchHouses(){
-    val searchCategory = readNextInt("Enter the category to search by: ")
+    val searchCategory = readNextLine("Enter the category to search by: ")
     val searchResults = houseAPI.searchByCategory(searchCategory)
     if(searchResults.isEmpty()){
         println("No Houses Found")

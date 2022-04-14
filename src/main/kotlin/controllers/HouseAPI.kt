@@ -2,6 +2,7 @@ package controllers
 
 import models.House
 import persistence.Serializer
+import utilities.HouseUtilities.isValidListIndex
 
 //ArrayList called houses
 class HouseAPI(serializerType: Serializer) {
@@ -37,6 +38,20 @@ fun updateHouse(indexToUpdate: Int, house: House?): Boolean{
     }
     return false
 }
+
+//    indexToSell is only used here
+    fun houseToBeSold(indexToSell: Int): Boolean {
+        if (isValidListIndex(indexToSell, houses)) {
+            val houseToSell = houses[indexToSell]
+            if (!houseToSell.isSold)
+            {
+                houseToSell.isSold = true
+                return true
+            }
+        }
+        return false
+    }
+
 
 //All listing
 fun listAllHouses(): String =

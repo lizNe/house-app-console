@@ -316,6 +316,52 @@ class HouseAPITest {
         }
     }
 
+    @Nested
+    inner class HouseToBeSold {
+        @Test
+        fun `selling a house that does not exist returns false`() {
+            assertFalse(populatedNotes!!.houseToBeSold(6))
+            assertFalse(populatedNotes!!.houseToBeSold(-1))
+            assertFalse(emptyNotes!!.houseToBeSold(0))
+        }
+
+        @Test
+        fun `selling an already sold house returns false`() {
+            assertTrue(populatedNotes!!.findHouse(2)!!.isSold)
+            assertFalse(populatedNotes!!.houseToBeSold(2))
+        }
+
+        @Test
+        fun `selling an unsold house that exists returns true and sells`() {
+            assertFalse(populatedNotes!!.findHouse(2)!!.isSold)
+            assertTrue(populatedNotes!!.houseToBeSold(2))
+            assertTrue(populatedNotes!!.findHouse(2)!!.isSold)
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 

@@ -10,6 +10,7 @@ import java.io.File
 import java.util.*
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class HouseAPITest {
@@ -161,5 +162,24 @@ class HouseAPITest {
         assertTrue(soldHousesString.contains("detached"))
     }
 
+    @Nested
+    inner class DeleteHouses {
+
+        @Test
+        fun `deleting a House that does not exist, returns null`() {
+            assertNull(emptyNotes!!.deleteHouse(0))
+            assertNull(populatedNotes!!.deleteHouse(-1))
+            assertNull(populatedNotes!!.deleteHouse(6))
+        }
+
+        @Test
+        fun `deleting a house that exists delete and returns deleted object`() {
+            assertEquals(6, populatedNotes!!.numberOfHouses())
+            assertEquals(threeStorey, populatedNotes!!.deleteHouse(4))
+            assertEquals(5, populatedNotes!!.numberOfHouses())
+            assertEquals(bungalow, populatedNotes!!.deleteHouse(0))
+            assertEquals(4, populatedNotes!!.numberOfHouses())
+        }
+    }
 
 }

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import persistence.JSONSerializer
 import persistence.XMLSerializer
 import java.io.File
 import java.util.*
@@ -119,7 +120,7 @@ class HouseAPITest {
         }
     }
 
-// Double Check with lecturer about this . Test runs but only when detached is set to true when it should be false
+    // Double Check with lecturer about this . Test runs but only when detached is set to true when it should be false
     @Test
     fun `listNotSoldHouses returns unSold houses when ArrayList has unsold houses stored`() {
         assertEquals(4, populatedNotes!!.numberOfNotSoldHouses())
@@ -187,9 +188,24 @@ class HouseAPITest {
     inner class UpdateHouses {
         @Test
         fun `updating a house that does not exist returns false`() {
-            assertFalse(populatedNotes!!.updateHouse(6, House("Studio", 200.000, "Donegal", "17th July 2022",false, 3,2.5,900)))
-            assertFalse(populatedNotes!!.updateHouse(-1, House("Detached", 370.000, "Louth", "17th April 2022",true , 3,2.0,2000)))
-            assertFalse(emptyNotes!!.updateHouse(0, House("Three-Storey", 1.000000, "Waterford", "18th April 2022",true , 6,6.0, 3000)))
+            assertFalse(
+                populatedNotes!!.updateHouse(
+                    6,
+                    House("Studio", 200.000, "Donegal", "17th July 2022", false, 3, 2.5, 900)
+                )
+            )
+            assertFalse(
+                populatedNotes!!.updateHouse(
+                    -1,
+                    House("Detached", 370.000, "Louth", "17th April 2022", true, 3, 2.0, 2000)
+                )
+            )
+            assertFalse(
+                emptyNotes!!.updateHouse(
+                    0,
+                    House("Three-Storey", 1.000000, "Waterford", "18th April 2022", true, 6, 6.0, 3000)
+                )
+            )
         }
 
         @Test
@@ -206,7 +222,12 @@ class HouseAPITest {
             assertEquals(2000, populatedNotes!!.findHouse(5)!!.houseSqFoot)
 
             //update note 6 with new information and ensure contents updated successfully
-            assertTrue(populatedNotes!!.updateHouse(5, House("Apartment", 200.000, "Tipperary", "31st October 2022",false, 3,2.5,1980)))
+            assertTrue(
+                populatedNotes!!.updateHouse(
+                    5,
+                    House("Apartment", 200.000, "Tipperary", "31st October 2022", false, 3, 2.5, 1980)
+                )
+            )
             assertEquals(200.000, populatedNotes!!.findHouse(5)!!.houseCost)
             assertEquals("Tipperary", populatedNotes!!.findHouse(5)!!.houseLocation)
             assertEquals(1980, populatedNotes!!.findHouse(5)!!.houseSqFoot)
@@ -215,5 +236,86 @@ class HouseAPITest {
         }
     }
 
+    @Nested
+    inner class PersistenceTests {
+
+        @Test
+        fun `saving and loading an empty collection in XML doesn't crash app`() {
+            // Saving an empty houses.XML file.
+            val storingHouses = HouseAPI(XMLSerializer(File("houses.xml")))
+            storingHouses.store()
+
+            //Loading the empty houses.xml file into a new object
+            val loadedHouses = HouseAPI(XMLSerializer(File("houses.xml")))
+            loadedHouses.load()
+
+            //Comparing the source of the notes (storingNotes) with the XML loaded notes (loadedNotes)
+            assertEquals(0, storingHouses.numberOfHouses())
+            assertEquals(0, loadedHouses.numberOfHouses())
+            assertEquals(storingHouses.numberOfHouses(), loadedHouses.numberOfHouses())
+        }
+
+        @Test
+        fun `saving and loading an loaded collection in XML doesn't loose data`() {
+            // Storing 3 notes to the houses.XML file.
+            val storingHouses = HouseAPI(XMLSerializer(File("houses.xml")))
+            storingHouses.add(bungalow!!)
+            storingHouses.add(twoStorey!!)
+            storingHouses.add(threeStorey!!)
+            storingHouses.store()
+
+            //Loading notes.xml into a different collection
+            val loadedHouses = HouseAPI(XMLSerializer(File("houses.xml")))
+            loadedHouses.load()
+
+            //Comparing the source of the Houses (storingHouses) with the XML loaded Houses (loadedHouses)
+            assertEquals(3, storingHouses.numberOfHouses())
+            assertEquals(3, loadedHouses.numberOfHouses())
+            assertEquals(storingHouses.numberOfHouses(), loadedHouses.numberOfHouses())
+            assertEquals(storingHouses.findHouse(0), loadedHouses.findHouse(0))
+            assertEquals(storingHouses.findHouse(1), loadedHouses.findHouse(1))
+            assertEquals(storingHouses.findHouse(2), loadedHouses.findHouse(2))
+        }
+
+        @Test
+        fun `saving and loading an empty collection in JSON doesn't crash app`() {
+            // Saving an empty notes.json file.
+            val storingHouses = HouseAPI(JSONSerializer(File("houses.json")))
+            storingHouses.store()
+
+            //Loading the empty houses.json file into a new object
+            val loadedHouses = HouseAPI(JSONSerializer(File("houses.json")))
+            loadedHouses.load()
+
+            //Comparing the source of the Houses (storingHouses) with the json loaded Houses (loadedHouses)
+            assertEquals(0, storingHouses.numberOfHouses())
+            assertEquals(0, loadedHouses.numberOfHouses())
+            assertEquals(storingHouses.numberOfHouses(), loadedHouses.numberOfHouses())
+        }
+
+        @Test
+        fun `saving and loading an loaded collection in JSON doesn't loose data`() {
+            // Storing 3 notes to the houses.json file.
+            val storingHouses = HouseAPI(JSONSerializer(File("houses.json")))
+            storingHouses.add(bungalow!!)
+            storingHouses.add(twoStorey!!)
+            storingHouses.add(threeStorey!!)
+            storingHouses.store()
+
+            //Loading Houses.json into a different collection
+            val loadedHouses = HouseAPI(JSONSerializer(File("houses.json")))
+            loadedHouses.load()
+
+            //Comparing the source of the Houses (storingHouses) with the json loaded Houses (loadedHouses)
+            assertEquals(3, storingHouses.numberOfHouses())
+            assertEquals(3, loadedHouses.numberOfHouses())
+            assertEquals(storingHouses.numberOfHouses(), loadedHouses.numberOfHouses())
+            assertEquals(storingHouses.findHouse(0), loadedHouses.findHouse(0))
+            assertEquals(storingHouses.findHouse(1), loadedHouses.findHouse(1))
+            assertEquals(storingHouses.findHouse(2), loadedHouses.findHouse(2))
+        }
+    }
 
 }
+
+

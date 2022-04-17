@@ -105,9 +105,7 @@ fun store() {
 
 //    This function will format the way the string is printed to te screen so that it is cleaner rather than adding code to format your strings this method is called instead
 fun formatListString(housesToFormat : List<House>) : String =
-    housesToFormat
-        .joinToString (separator = "\n") { house ->
-            houses.indexOf(house).toString() + ": " + house.toString() }
+    housesToFormat.joinToString (separator = "\n") { house -> houses.indexOf(house).toString() + ": " + house.toString() }
 
 
 }

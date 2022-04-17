@@ -314,6 +314,44 @@ class HouseAPITest {
             assertEquals(storingHouses.findHouse(1), loadedHouses.findHouse(1))
             assertEquals(storingHouses.findHouse(2), loadedHouses.findHouse(2))
         }
+
+        @Test
+        fun `saving and loading an empty collection in YAML doesn't crash app`() {
+            // Saving an empty houses.yaml file.
+            val storingHouses = HouseAPI(JSONSerializer(File("houses.yaml")))
+            storingHouses.store()
+
+            //Loading the empty houses.yaml file into a new object
+            val loadedHouses = HouseAPI(JSONSerializer(File("houses.yaml")))
+            loadedHouses.load()
+
+            //Comparing the source of the Houses (storingHouses) with the yaml  loaded Houses (loadedHouses)
+            assertEquals(0, storingHouses.numberOfHouses())
+            assertEquals(0, loadedHouses.numberOfHouses())
+            assertEquals(storingHouses.numberOfHouses(), loadedHouses.numberOfHouses())
+        }
+
+        @Test
+        fun `saving and loading an loaded collection in YAML doesn't loose data`() {
+            // Storing 3 notes to the houses.yaml file.
+            val storingHouses = HouseAPI(JSONSerializer(File("houses.yaml")))
+            storingHouses.add(bungalow!!)
+            storingHouses.add(twoStorey!!)
+            storingHouses.add(threeStorey!!)
+            storingHouses.store()
+
+            //Loading Houses.yaml  into a different collection
+            val loadedHouses = HouseAPI(JSONSerializer(File("houses.yaml")))
+            loadedHouses.load()
+
+            //Comparing the source of the Houses (storingHouses) with the yaml loaded Houses (loadedHouses)
+            assertEquals(3, storingHouses.numberOfHouses())
+            assertEquals(3, loadedHouses.numberOfHouses())
+            assertEquals(storingHouses.numberOfHouses(), loadedHouses.numberOfHouses())
+            assertEquals(storingHouses.findHouse(0), loadedHouses.findHouse(0))
+            assertEquals(storingHouses.findHouse(1), loadedHouses.findHouse(1))
+            assertEquals(storingHouses.findHouse(2), loadedHouses.findHouse(2))
+        }
     }
 
     @Nested

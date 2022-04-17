@@ -1,7 +1,8 @@
+package persistence
+
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import models.House
-import persistence.Serializer
 import java.io.File
 
 class YAMLSerializer(private val file: File) : Serializer {

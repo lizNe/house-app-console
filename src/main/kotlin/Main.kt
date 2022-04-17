@@ -1,10 +1,8 @@
 import controllers.HouseAPI
 import models.House
 import mu.KotlinLogging
-import persistence.JSONSerializer
 import persistence.XMLSerializer
 //import persistence.YAMLSerializer
-import utils.ScannerInput
 import utils.ScannerInput.readNextDouble
 import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
@@ -13,9 +11,9 @@ import java.io.File
 //Used to allow you to console log information to the console
 private val logger = KotlinLogging.logger {}
 
-//private val houseAPI = HouseAPI(XMLSerializer(File("houses.xml")))
+private val houseAPI = HouseAPI(XMLSerializer(File("houses.xml")))
 
-private val houseAPI = HouseAPI(JSONSerializer(File("houses.json")))
+//private val houseAPI = HouseAPI(JSONSerializer(File("houses.json")))
 //private val houseAPI = HouseAPI(YAMLSerializer(File("houses.yaml")))
 
 

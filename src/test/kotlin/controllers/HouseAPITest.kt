@@ -339,6 +339,44 @@ class HouseAPITest {
         }
     }
 
+    @Nested
+    inner class SearchMethods {
+
+        @Test
+        fun `search notes by category returns no houses when no houses with that category exist`() {
+            //Searching a populated collection for a category that doesn't exist.
+            assertEquals(6, populatedNotes!!.numberOfHouses())
+            val searchResults = populatedNotes!!.searchByCategory("no houses found")
+            assertTrue(searchResults.isEmpty())
+
+            //Searching an empty collection
+            assertEquals(0, emptyNotes!!.numberOfHouses())
+            assertTrue(emptyNotes!!.searchByCategory("").isEmpty())
+        }
+
+        @Test
+        fun `search houses by category returns Houses when Houses with that category exist`() {
+            assertEquals(6, populatedNotes!!.numberOfHouses())
+
+            //Searching a populated collection for a full category that exists (case matches exactly)
+            var searchResults = populatedNotes!!.searchByCategory("Semi-Detached")
+            assertTrue(searchResults.contains("Semi-Detached"))
+            assertFalse(searchResults.contains("Studio"))
+
+            //Searching a populated collection for a partial category that exists (case matches exactly)
+            searchResults = populatedNotes!!.searchByCategory("Storey")
+            assertTrue(searchResults.contains("Two-Storey"))
+            assertTrue(searchResults.contains("Three-Storey"))
+            assertFalse(searchResults.contains("Apartment"))
+
+            //Searching a populated collection for a partial category that exists (case doesn't match)
+            searchResults = populatedNotes!!.searchByCategory("sToReY")
+            assertTrue(searchResults.contains("Two-Storey"))
+            assertTrue(searchResults.contains("Three-Storey"))
+            assertFalse(searchResults.contains("Apartment"))
+        }
+    }
+
 
 
 

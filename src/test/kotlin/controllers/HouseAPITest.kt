@@ -182,4 +182,38 @@ class HouseAPITest {
         }
     }
 
+
+    @Nested
+    inner class UpdateHouses {
+        @Test
+        fun `updating a house that does not exist returns false`() {
+            assertFalse(populatedNotes!!.updateHouse(6, House("Studio", 200.000, "Donegal", "17th July 2022",false, 3,2.5,900)))
+            assertFalse(populatedNotes!!.updateHouse(-1, House("Detached", 370.000, "Louth", "17th April 2022",true , 3,2.0,2000)))
+            assertFalse(emptyNotes!!.updateHouse(0, House("Three-Storey", 1.000000, "Waterford", "18th April 2022",true , 6,6.0, 3000)))
+        }
+
+        @Test
+        fun `updating a house that exists returns true and updates`() {
+            //check note 6 exists and check the contents
+            assertEquals(apartment, populatedNotes!!.findHouse(5))
+            assertEquals("Apartment", populatedNotes!!.findHouse(5)!!.houseCategory)
+            assertEquals(197.500, populatedNotes!!.findHouse(5)!!.houseCost)
+            assertEquals("Dublin", populatedNotes!!.findHouse(5)!!.houseLocation)
+            assertEquals("31st October 2022", populatedNotes!!.findHouse(5)!!.isAvailableFrom)
+            assertEquals(false, populatedNotes!!.findHouse(5)!!.isSold)
+            assertEquals(3, populatedNotes!!.findHouse(5)!!.numberOfBedrooms)
+            assertEquals(2.5, populatedNotes!!.findHouse(5)!!.numberOfBathrooms)
+            assertEquals(2000, populatedNotes!!.findHouse(5)!!.houseSqFoot)
+
+            //update note 6 with new information and ensure contents updated successfully
+            assertTrue(populatedNotes!!.updateHouse(5, House("Apartment", 200.000, "Tipperary", "31st October 2022",false, 3,2.5,1980)))
+            assertEquals(200.000, populatedNotes!!.findHouse(5)!!.houseCost)
+            assertEquals("Tipperary", populatedNotes!!.findHouse(5)!!.houseLocation)
+            assertEquals(1980, populatedNotes!!.findHouse(5)!!.houseSqFoot)
+
+
+        }
+    }
+
+
 }

@@ -2,6 +2,7 @@ package controllers
 
 import models.House
 import persistence.Serializer
+import utilities.HouseUtilities.isValidListIndex
 
 //ArrayList called houses
 class HouseAPI(serializerType: Serializer) {
@@ -38,6 +39,19 @@ fun updateHouse(indexToUpdate: Int, house: House?): Boolean{
     return false
 }
 
+//    indexToSell is only used here
+    fun houseToBeSold(indexToSell: Int): Boolean {
+        if (isValidListIndex(indexToSell, houses)) {
+            val houseToSell = houses[indexToSell]
+            if (!houseToSell.isSold)
+            {
+                houseToSell.isSold = true
+                return true
+            }
+        }
+        return false
+    }
+
 //All listing
 fun listAllHouses(): String =
     if  (houses.isEmpty()) "No houses stored"
@@ -45,7 +59,11 @@ fun listAllHouses(): String =
 
 fun listSoldHouses(): String =
     if  (numberOfSoldHouses() == 0)  "No Houses Sold are stored"
-    else formatListString(houses.filter { house -> !house.isSold})
+    else formatListString(houses.filter { house -> house.isSold})
+
+    fun listNotSoldHouses(): String =
+        if  (numberOfSoldHouses() == 0)  "No Houses not Sold stored"
+        else formatListString(houses.filter { house -> !house.isSold})
 
 //All number functions for the listing functions
 fun numberOfSoldHouses(): Int = houses.count { house: House -> house.isSold }

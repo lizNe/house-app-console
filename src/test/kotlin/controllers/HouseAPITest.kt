@@ -55,7 +55,6 @@ class HouseAPITest {
         emptyNotes = null
     }
 
-
     @Nested
     inner class AddHouses {
         @Test

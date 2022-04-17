@@ -49,12 +49,12 @@ fun mainMenu(): Int {
          > ----------------------------------
          > |        Housing Agent App       |
          > ----------------------------------
-         > | HOUSE MENU                     |
+         > |          HOUSE MENU            |
          > |   1) Add a House               |
          > |   2) List all Houses           |
          > |   3) Update a House            |
          > |   4) Delete a House            |
-         > |   5) Sell a House              |
+         > |   5) House to Sell             |
          > |--------------------------------|
          > |   6) Search Houses             |
          > |--------------------------------|
@@ -91,7 +91,8 @@ fun listHouses() {
             """
                   > --------------------------------
                   > |   1) View All Houses          |
-                  > |   2) View Sold houses         |
+                  > |   2) View Sold Houses         |
+                  > |   3) View unSold Houses       |
                   > --------------------------------
          > ==>> """.trimMargin(">")
         )
@@ -99,6 +100,7 @@ fun listHouses() {
         when (option) {
             1 -> listAllHouses();
             2 -> listSoldHouses();
+            3 -> listNotSoldHouses();
             else -> println("Invalid option entered: $option")
         }
     } else {
@@ -115,8 +117,7 @@ fun updateHouse() {
             val houseCategory = readNextLine("Enter the category of the house to update: ")
             val houseCost = readNextDouble("Enter the cost of the house to update: ")
             val houseLocation = readNextLine("Enter the location of the house to update: ")
-            val isAvailableFrom =
-                readNextLine("Enter the dates in which the house is available for viewing to update: ")
+            val isAvailableFrom = readNextLine("Enter the dates in which the house is available for viewing to update: ")
             val numberOfBedrooms = readNextInt("Enter the number of bedrooms in the house to update: ")
             val numberOfBathrooms = readNextDouble("Enter the number of bathrooms in the house to update: ")
             val houseSqFoot = readNextInt("Enter the square footage of the house to update: ")
@@ -175,10 +176,11 @@ fun load() {
 
 //only ask the user to choose the note to archive if active notes exist
 //pass the index of the note to NoteAPI for archiving and check for success.
+//like archive note it will say the house is SOLD
 fun houseToBeSold(){
     listSoldHouses()
     if(houseAPI.numberOfSoldHouses()>0){
-        val indexToSell = readNextInt("Enter the index of the house to display as Sold: ")
+        val indexToSell = readNextInt("Enter the index of the house to be confirmed as Sold: ")
         if(houseAPI.houseToBeSold(indexToSell)){
             println("Sell Successful")
         }else{
@@ -205,4 +207,9 @@ fun listAllHouses() {
 // calls the class houseAPI and calls the function listSoldHouses() from this class and will print all the archived houses that are in the system
 fun listSoldHouses() {
     println(houseAPI.listSoldHouses())
+}
+
+
+fun listNotSoldHouses() {
+    println(houseAPI.listNotSoldHouses())
 }

@@ -52,7 +52,6 @@ fun updateHouse(indexToUpdate: Int, house: House?): Boolean{
         return false
     }
 
-
 //All listing
 fun listAllHouses(): String =
     if  (houses.isEmpty()) "No houses stored"
@@ -60,7 +59,11 @@ fun listAllHouses(): String =
 
 fun listSoldHouses(): String =
     if  (numberOfSoldHouses() == 0)  "No Houses Sold are stored"
-    else formatListString(houses.filter { house -> !house.isSold})
+    else formatListString(houses.filter { house -> house.isSold})
+
+    fun listNotSoldHouses(): String =
+        if  (numberOfSoldHouses() == 0)  "No Houses not Sold stored"
+        else formatListString(houses.filter { house -> !house.isSold})
 
 //All number functions for the listing functions
 fun numberOfSoldHouses(): Int = houses.count { house: House -> house.isSold }

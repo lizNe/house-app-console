@@ -62,11 +62,18 @@ fun listSoldHouses(): String =
     else formatListString(houses.filter { house -> house.isSold})
 
     fun listNotSoldHouses(): String =
-        if  (numberOfSoldHouses() == 0)  "No Houses not Sold stored"
+        if  (numberOfSoldHouses() == 0)  "No Houses unSold stored"
         else formatListString(houses.filter { house -> !house.isSold})
 
 //All number functions for the listing functions
-fun numberOfSoldHouses(): Int = houses.count { house: House -> house.isSold }
+    fun numberOfSoldHouses(): Int = houses.count { house: House -> house.isSold }
+
+    fun numberOfNotSoldHouses(): Int = houses.count { house: House -> !house.isSold }
+
+    fun numberOfHouses(): Int {
+        return houses.size
+    }
+
 
 
 // searches for notes by houseCategory and uses the formatListString to print the house in a clean format
@@ -74,10 +81,6 @@ fun searchByCategory (searchString : String) =
     formatListString(
         houses.filter { house -> house.houseCategory.contains(searchString, ignoreCase = true) })
 
-
-fun numberOfHouses(): Int {
-    return houses.size
-}
 
 fun findHouse(index: Int): House? {
     return if (isValidListIndex(index, houses)) {

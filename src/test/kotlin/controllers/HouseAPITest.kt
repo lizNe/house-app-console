@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import persistence.XMLSerializer
 import java.io.File
+import java.util.*
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class HouseAPITest {
@@ -92,6 +94,71 @@ class HouseAPITest {
             assertEquals(1, emptyNotes!!.numberOfHouses())
             assertEquals(newHouse, emptyNotes!!.findHouse(emptyNotes!!.numberOfHouses() - 1))
         }
+    }
+
+    @Nested
+    inner class ListHouses {
+
+        @Test
+        fun `listAllHouses returns No Houses Stored message when ArrayList is empty`() {
+            assertEquals(0, emptyNotes!!.numberOfHouses())
+            assertTrue(emptyNotes!!.listAllHouses().lowercase().contains("no houses"))
+        }
+
+        @Test
+        fun `listAllHouses returns Houses when ArrayList has houses stored`() {
+            assertEquals(6, populatedNotes!!.numberOfHouses())
+            val housesString = populatedNotes!!.listAllHouses().lowercase()
+            assertTrue(housesString.contains("bungalow"))
+            assertTrue(housesString.contains("detached"))
+            assertTrue(housesString.contains("semi-detached"))
+            assertTrue(housesString.contains("two-storey"))
+            assertTrue(housesString.contains("three-storey"))
+            assertTrue(housesString.contains("apartment"))
+        }
+    }
+
+// Double Check with lecturer about this . Test runs but only when detached is set to true when it should be false
+    @Test
+    fun `listNotSoldHouses returns unSold houses when ArrayList has unsold houses stored`() {
+        assertEquals(4, populatedNotes!!.numberOfNotSoldHouses())
+        val unSoldHousesString = populatedNotes!!.listNotSoldHouses().lowercase()
+        assertFalse(unSoldHousesString.contains("bungalow"))
+        assertTrue(unSoldHousesString.contains("detached"))
+
+        assertTrue(unSoldHousesString.contains("semi-detached"))
+        assertTrue(unSoldHousesString.contains("two-storey"))
+        assertTrue(unSoldHousesString.contains("three-storey"))
+        assertTrue(unSoldHousesString.contains("apartment"))
+    }
+
+    @Test
+    fun `listNotSoldHouses returns no unsold houses when ArrayList is empty`() {
+        assertEquals(0, emptyNotes!!.numberOfNotSoldHouses())
+        assertTrue(
+            emptyNotes!!.listNotSoldHouses().lowercase().contains("no houses unsold")
+        )
+    }
+
+
+    @Test
+    fun `listSoldHouses returns no sold houses when ArrayList is empty`() {
+        assertEquals(0, emptyNotes!!.numberOfSoldHouses())
+        assertTrue(
+            emptyNotes!!.listSoldHouses().lowercase().contains("no houses sold stored")
+        )
+    }
+
+    @Test
+    fun `listSoldHouses returns sold houses when ArrayList has sold houses stored`() {
+        assertEquals(2, populatedNotes!!.numberOfSoldHouses())
+        val soldHousesString = populatedNotes!!.listSoldHouses().lowercase()
+        assertFalse(soldHousesString.contains("semi-detached"))
+        assertFalse(soldHousesString.contains("two-storey"))
+        assertFalse(soldHousesString.contains("three-storey"))
+        assertFalse(soldHousesString.contains("apartment"))
+        assertTrue(soldHousesString.contains("bungalow"))
+        assertTrue(soldHousesString.contains("detached"))
     }
 
 

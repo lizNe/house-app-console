@@ -35,6 +35,7 @@ class HouseUtilitiesTest {
         Assertions.assertTrue(categories.contains("Two-Storey"))
         Assertions.assertTrue(categories.contains("Three-Storey"))
         Assertions.assertTrue(categories.contains("Apartment"))
+    Assertions.assertTrue(categories.contains("Studio"))
     }
 
     @Test

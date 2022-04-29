@@ -1,6 +1,9 @@
 package utilities
 
+import models.House
+
 object HouseUtilities {
+    private var houses = ArrayList<House>()
 
     @JvmStatic
     val categories = setOf ("Bungalow", "Detached","Semi-Detached","Two-Storey","Three-Storey","Apartment","Studio")  //add more categories in here.
@@ -29,4 +32,8 @@ fun validRange(numberToCheck: Int, min: Int, max: Int): Boolean {
 fun isValidListIndex(index: Int, list: List<Any>): Boolean {
     return (index >= 0 && index < list.size)
 }
+
+    fun isValidIndex(index: Int) :Boolean{
+        return isValidListIndex(index, houses);
+    }
 }

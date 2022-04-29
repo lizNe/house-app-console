@@ -1,15 +1,1 @@
----
-- houseCategory: "Two-Storey"
-  houseCost: 400.0
-  houseLocation: "Cork"
-  numberOfBedrooms: 3
-  numberOfBathrooms: 2.0
-  houseSqFoot: 700
-  sold: false
-- houseCategory: "Apartment"
-  houseCost: 200.0
-  houseLocation: "Dublin"
-  numberOfBedrooms: 1
-  numberOfBathrooms: 1.0
-  houseSqFoot: 300
-  sold: false
+{"object-stream":{"list":[""]}}

@@ -147,7 +147,7 @@ class HouseAPITest {
     fun `listSoldHouses returns no sold houses when ArrayList is empty`() {
         assertEquals(0, emptyNotes!!.numberOfSoldHouses())
         assertTrue(
-            emptyNotes!!.listSoldHouses().lowercase().contains("no houses sold stored")
+            emptyNotes!!.listSoldHouses().lowercase().contains("no houses sold are stored")
         )
     }
 
@@ -365,8 +365,8 @@ class HouseAPITest {
 
         @Test
         fun `selling an already sold house returns false`() {
-            assertTrue(populatedNotes!!.findHouse(2)!!.isSold)
-            assertFalse(populatedNotes!!.houseToBeSold(2))
+            assertTrue(populatedNotes!!.findHouse(1)!!.isSold)
+            assertFalse(populatedNotes!!.houseToBeSold(1))
         }
 
         @Test

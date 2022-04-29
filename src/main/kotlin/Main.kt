@@ -2,6 +2,8 @@ import controllers.HouseAPI
 import models.House
 import mu.KotlinLogging
 import persistence.XMLSerializer
+import utilities.HouseUtilities
+import utilities.HouseUtilities.isValidCategory
 //import persistence.YAMLSerializer
 import utils.ScannerInput.readNextDouble
 import utils.ScannerInput.readNextInt
@@ -66,7 +68,12 @@ fun mainMenu(): Int {
 
 fun addHouse() {
 
-    val houseCategory = readNextLine("Enter the category of the house: ")
+    var houseCategory = readNextLine("Enter the category of the house:\nBungalow, Detached, Semi-Detached, Two-Storey, Three-Storey, Apartment, Studio:  ")
+    while(!isValidCategory(houseCategory))
+
+    {
+      houseCategory=readNextLine("Please enter a valid Category")
+    }
     val houseCost = readNextDouble("Enter the cost of the house: ")
     val houseLocation = readNextLine("Enter the location of the house: ")
     val isAvailableFrom = readNextLine("Enter the dates in which the house is available for viewing: ")
@@ -111,7 +118,7 @@ fun updateHouse() {
     if (houseAPI.numberOfHouses() > 0) {
         //only ask the user to choose the house if the house exist
         val indexToUpdate = readNextInt("Enter the index of the house you want to update: ")
-        if (houseAPI.isValidIndex(indexToUpdate)) {
+        if (HouseUtilities.isValidIndex(indexToUpdate)) {
             val houseCategory = readNextLine("Enter the category of the house to update: ")
             val houseCost = readNextDouble("Enter the cost of the house to update: ")
             val houseLocation = readNextLine("Enter the location of the house to update: ")
@@ -176,6 +183,7 @@ fun load() {
 //pass the index of the note to NoteAPI for archiving and check for success.
 //like archive note it will say the house is SOLD
 fun houseToBeSold(){
+    println("Sold Houses Inventory")
     listSoldHouses()
     if(houseAPI.numberOfSoldHouses()>0){
         val indexToSell = readNextInt("Enter the index of the house to be confirmed as Sold: ")

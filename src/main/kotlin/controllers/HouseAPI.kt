@@ -88,11 +88,6 @@ fun findHouse(index: Int): House? {
     } else null
 }
 
-
-fun isValidIndex(index: Int) :Boolean{
-    return isValidListIndex(index, houses);
-}
-
 @Throws(Exception::class)
 fun load() {
     houses = serializer.read() as ArrayList<House>

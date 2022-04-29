@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HouseAPI.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">en-house-app</a> &gt; <a href="index.source.html" class="el_package">controllers</a> &gt; <span class="el_source">HouseAPI.kt</span></div><h1>HouseAPI.kt</h1><pre class="source lang-java linenums">package controllers
+
+import models.House
+import persistence.Serializer
+import utilities.HouseUtilities.isValidListIndex
+
+// ArrayList called houses
+<span class="fc" id="L8">class HouseAPI(serializerType: Serializer) {</span>
+<span class="fc" id="L9">    private var houses = ArrayList&lt;House&gt;()</span>
+<span class="fc" id="L10">    private var serializer: Serializer = serializerType</span>
+
+    fun add(house: House): Boolean {
+<span class="fc" id="L13">        return houses.add(house)</span>
+    }
+
+    fun deleteHouse(indexToDelete: Int): House? {
+<span class="fc bfc" id="L17" title="All 2 branches covered.">        return if (isValidListIndex(indexToDelete, houses)) {</span>
+<span class="fc" id="L18">            houses.removeAt(indexToDelete)</span>
+<span class="fc" id="L19">        } else null</span>
+    }
+
+// find the house object by the index number
+// if the house exists, use the house details passed as parameters to update the found house in the ArrayList.
+// if the house was not found, return false, indicating that the update was not successful
+    fun updateHouse(indexToUpdate: Int, house: House?): Boolean {
+<span class="fc" id="L26">        val foundHouse = findHouse(indexToUpdate)</span>
+<span class="pc bpc" id="L27" title="1 of 4 branches missed.">        if ((foundHouse != null) &amp;&amp; (house != null)) {</span>
+<span class="fc" id="L28">            foundHouse.houseCategory = house.houseCategory</span>
+<span class="fc" id="L29">            foundHouse.houseCost = house.houseCost</span>
+<span class="fc" id="L30">            foundHouse.houseLocation = house.houseLocation</span>
+<span class="fc" id="L31">            foundHouse.isAvailableFrom = house.isAvailableFrom</span>
+<span class="fc" id="L32">            foundHouse.numberOfBedrooms = house.numberOfBedrooms</span>
+<span class="fc" id="L33">            foundHouse.numberOfBathrooms = house.numberOfBathrooms</span>
+<span class="fc" id="L34">            foundHouse.houseSqFoot = house.houseSqFoot</span>
+<span class="fc" id="L35">            return true</span>
+        }
+<span class="fc" id="L37">        return false</span>
+    }
+
+//    indexToSell is only used here
+    fun houseToBeSold(indexToSell: Int): Boolean {
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (isValidListIndex(indexToSell, houses)) {</span>
+<span class="nc" id="L43">            val houseToSell = houses[indexToSell]</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">            if (!houseToSell.isSold) {</span>
+<span class="nc" id="L45">                houseToSell.isSold = true</span>
+<span class="nc" id="L46">                return true</span>
+            }
+        }
+<span class="nc" id="L49">        return false</span>
+    }
+
+// All listing
+    fun listAllHouses(): String =
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        if (houses.isEmpty()) &quot;No houses stored&quot;</span>
+<span class="fc" id="L55">        else formatListString(houses)</span>
+
+    fun listSoldHouses(): String =
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        if (numberOfSoldHouses() == 0) &quot;No Houses Sold are stored&quot;</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        else formatListString(houses.filter { house -&gt; house.isSold })</span>
+
+    fun listNotSoldHouses(): String =
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        if (numberOfSoldHouses() == 0) &quot;No Houses unSold stored&quot;</span>
+<span class="fc bfc" id="L63" title="All 4 branches covered.">        else formatListString(houses.filter { house -&gt; !house.isSold })</span>
+
+// All number functions for the listing functions
+<span class="pc bpc" id="L66" title="1 of 4 branches missed.">    fun numberOfSoldHouses(): Int = houses.count { house: House -&gt; house.isSold }</span>
+
+<span class="pc bpc" id="L68" title="1 of 6 branches missed.">    fun numberOfNotSoldHouses(): Int = houses.count { house: House -&gt; !house.isSold }</span>
+
+    fun numberOfHouses(): Int {
+<span class="fc" id="L71">        return houses.size</span>
+    }
+
+// searches for notes by houseCategory and uses the formatListString to print the house in a clean format
+    fun searchByCategory(searchString: String) =
+<span class="fc" id="L76">        formatListString(</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">            houses.filter { house -&gt; house.houseCategory.contains(searchString, ignoreCase = true) }</span>
+<span class="fc" id="L78">        )</span>
+
+    fun findHouse(index: Int): House? {
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        return if (isValidListIndex(index, houses)) {</span>
+<span class="fc" id="L82">            houses[index]</span>
+<span class="fc" id="L83">        } else null</span>
+    }
+
+    @Throws(Exception::class)
+    @Suppress(&quot;UNCHECKED_CAST&quot;)
+    fun load() {
+<span class="fc" id="L89">        houses = serializer.read() as ArrayList&lt;House&gt;</span>
+<span class="fc" id="L90">    }</span>
+
+    @Throws(Exception::class)
+    fun store() {
+<span class="fc" id="L94">        serializer.write(houses)</span>
+<span class="fc" id="L95">    }</span>
+
+//    This function will format the way the string is printed to te screen so that it is cleaner rather than adding code to format your strings this method is called instead
+    fun formatListString(housesToFormat: List&lt;House&gt;): String =
+<span class="fc" id="L99">        housesToFormat.joinToString(separator = &quot;\n&quot;) { house -&gt; houses.indexOf(house).toString() + &quot;: &quot; + house.toString() }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

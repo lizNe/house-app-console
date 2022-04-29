@@ -1,6 +1,6 @@
 package models
 
-data class House (
+data class House(
     var houseCategory: String,
     var houseCost: Double,
     var houseLocation: String,
@@ -8,6 +8,6 @@ data class House (
     var isSold: Boolean,
     var numberOfBedrooms: Int,
     var numberOfBathrooms: Double,
-    var houseSqFoot:Int
+    var houseSqFoot: Int
 
 )

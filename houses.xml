@@ -1,0 +1,34 @@
+<object-stream>
+  <list>
+    <models.House>
+      <houseCategory>Bungalow</houseCategory>
+      <houseCost>350.0</houseCost>
+      <houseLocation>Roscommon</houseLocation>
+      <isAvailableFrom> 17th April 2022</isAvailableFrom>
+      <isSold>true</isSold>
+      <numberOfBedrooms>2</numberOfBedrooms>
+      <numberOfBathrooms>1.5</numberOfBathrooms>
+      <houseSqFoot>800</houseSqFoot>
+    </models.House>
+    <models.House>
+      <houseCategory>Two-Storey</houseCategory>
+      <houseCost>400.0</houseCost>
+      <houseLocation>Carlow</houseLocation>
+      <isAvailableFrom> 3rd October 2022</isAvailableFrom>
+      <isSold>false</isSold>
+      <numberOfBedrooms>3</numberOfBedrooms>
+      <numberOfBathrooms>2.5</numberOfBathrooms>
+      <houseSqFoot>1500</houseSqFoot>
+    </models.House>
+    <models.House>
+      <houseCategory>Three-Storey</houseCategory>
+      <houseCost>750.0</houseCost>
+      <houseLocation>Kildare</houseLocation>
+      <isAvailableFrom>1st November 2022</isAvailableFrom>
+      <isSold>false</isSold>
+      <numberOfBedrooms>5</numberOfBedrooms>
+      <numberOfBathrooms>4.0</numberOfBathrooms>
+      <houseSqFoot>2700</houseSqFoot>
+    </models.House>
+  </list>
+</object-stream>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="controllers.HouseAPITest$AddHouses" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-04-29T15:28:40" hostname="LAPTOP-JCT7DJ1T" time="0.167">
+  <properties/>
+  <testcase name="adding a House to a populated list adds to ArrayList()" classname="controllers.HouseAPITest$AddHouses" time="0.164"/>
+  <testcase name="adding a Note to an empty list adds to ArrayList()" classname="controllers.HouseAPITest$AddHouses" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

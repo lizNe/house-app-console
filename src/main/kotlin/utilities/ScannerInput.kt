@@ -1,7 +1,7 @@
-package utils
+package utilities
 
 import java.lang.NumberFormatException
-import java.util.*
+import java.util.Scanner
 
 /**
  * This class provides methods for the robust handling of I/O using Scanner.
@@ -11,7 +11,7 @@ import java.util.*
  * The methods also parse the numeric data entered to ensure it is correct. If it isn't correct,
  * the user is prompted to enter it again.
  *
- * @author Siobhan Drohan, Mairead Meagher
+ * @author Elizabeth Neary
  * @version 1.0
  */
 
@@ -71,12 +71,14 @@ object ScannerInput {
     /**
      * Read a single character of text from the user.  There is no validation done on the entered data.
      *
-     * @param prompt  The information printed to the console for the user to read
+     * @param "prompt" The information printed to the console for the user to read
      * @return The char read from the user.
      */
-    @JvmStatic
-    fun readNextChar(prompt: String?): Char {
+// Had to comment out because ok Klint not working.
+    /*   @JvmStatic
+   fun readNextChar(prompt: String?): Char {
         print(prompt)
         return Scanner(System.`in`).next()[0]
     }
+*/
 }

@@ -24,10 +24,9 @@ class HouseUtilitiesTest {
         Assertions.assertFalse(validRange(-1, -1, -2))
     }
 
-
 //    Errors says Expected 6 but 7. Need to double-check why and if correct
     @Test
-    fun categoriesReturnsFullCategoriesSet(){
+    fun categoriesReturnsFullCategoriesSet() {
         Assertions.assertEquals(7, categories.size)
         Assertions.assertTrue(categories.contains("Bungalow"))
         Assertions.assertTrue(categories.contains("Detached"))
@@ -35,11 +34,11 @@ class HouseUtilitiesTest {
         Assertions.assertTrue(categories.contains("Two-Storey"))
         Assertions.assertTrue(categories.contains("Three-Storey"))
         Assertions.assertTrue(categories.contains("Apartment"))
-    Assertions.assertTrue(categories.contains("Studio"))
+        Assertions.assertTrue(categories.contains("Studio"))
     }
 
     @Test
-    fun isValidCategoryTrueWhenCategoryExists(){
+    fun isValidCategoryTrueWhenCategoryExists() {
         Assertions.assertTrue(isValidCategory("BUNGALOW"))
         Assertions.assertTrue(isValidCategory("bungalow"))
         Assertions.assertTrue(isValidCategory("BUNgaLoW"))
@@ -63,12 +62,10 @@ class HouseUtilitiesTest {
         Assertions.assertTrue(isValidCategory("APARTMENT"))
         Assertions.assertTrue(isValidCategory("apartment"))
         Assertions.assertTrue(isValidCategory("aPArTmenT"))
-
     }
 
-
     @Test
-    fun isValidCategoryFalseWhenCategoryDoesNotExist(){
+    fun isValidCategoryFalseWhenCategoryDoesNotExist() {
         Assertions.assertFalse(isValidCategory("bunglow"))
         Assertions.assertFalse(isValidCategory("detachted"))
         Assertions.assertFalse(isValidCategory("semi-detatched"))
@@ -78,6 +75,5 @@ class HouseUtilitiesTest {
         Assertions.assertFalse(isValidCategory("three-story"))
         Assertions.assertFalse(isValidCategory("aparment"))
         Assertions.assertFalse(isValidCategory("aparttment"))
-
     }
 }

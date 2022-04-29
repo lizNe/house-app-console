@@ -5,6 +5,8 @@ plugins {
 //    Plugin for Dokka - KDOC generating tool
     id("org.jetbrains.dokka") version "1.6.10"
     jacoco
+
+    id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
     application
 }
 
@@ -14,7 +16,6 @@ version = "1.0-SNAPSHOT"
 repositories {
     mavenCentral()
 }
-
 
 //    Implementation means dependency available in all source sets, including test source sets
 //    testImplementation means dependency only available in test source set

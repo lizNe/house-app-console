@@ -1,4 +1,4 @@
-package persistence
+/*package persistence
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
@@ -8,6 +8,7 @@ import java.io.File
 class YAMLSerializer(private val file: File) : Serializer {
 
     @Throws(Exception::class)
+    @Suppress("UNCHECKED_CAST")
     override fun read(): Any {
         /*   val inputStream: InputStream = FileInputStream(file)
            val yaml = Yaml(Constructor(ArrayList<Note>()::class.java))
@@ -31,6 +32,7 @@ class YAMLSerializer(private val file: File) : Serializer {
 
          */
         val objectMapper = ObjectMapper(YAMLFactory())
-        objectMapper.writeValue(file,obj)
+        objectMapper.writeValue(file, obj)
     }
 }
+ */

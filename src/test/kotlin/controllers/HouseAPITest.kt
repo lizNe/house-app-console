@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test
 import persistence.JSONSerializer
 import persistence.XMLSerializer
 import java.io.File
-import java.util.*
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNull
@@ -25,7 +24,6 @@ class HouseAPITest {
     private var populatedNotes: HouseAPI? = HouseAPI(XMLSerializer(File("houses.xml")))
     private var emptyNotes: HouseAPI? = HouseAPI(XMLSerializer(File("houses.xml")))
 
-
 //    To get the test working you need to put comma before and after in order for the fields to appear like so... ,noteContents, and then the field will automatically allow you to enter its value
 //    Got stuck on that for a while... ,isNoteArchived, True ,noteContents, "Blah blah" .....
 
@@ -38,7 +36,7 @@ class HouseAPITest {
         threeStorey = House("Three-Storey", 750.000, "Kildare", "1st November 2022", false, 5, 4.0, 2700)
         apartment = House("Apartment", 197.500, "Dublin", "31st October 2022", false, 3, 2.5, 2000)
 
-        //adding 5 Note to the notes api
+        // adding 5 Note to the notes api
         populatedNotes!!.add(bungalow!!)
         populatedNotes!!.add(detached!!)
         populatedNotes!!.add(semiDetached!!)
@@ -142,7 +140,6 @@ class HouseAPITest {
         )
     }
 
-
     @Test
     fun `listSoldHouses returns no sold houses when ArrayList is empty`() {
         assertEquals(0, emptyNotes!!.numberOfSoldHouses())
@@ -183,7 +180,6 @@ class HouseAPITest {
         }
     }
 
-
     @Nested
     inner class UpdateHouses {
         @Test
@@ -210,7 +206,7 @@ class HouseAPITest {
 
         @Test
         fun `updating a house that exists returns true and updates`() {
-            //check note 6 exists and check the contents
+            // check note 6 exists and check the contents
             assertEquals(apartment, populatedNotes!!.findHouse(5))
             assertEquals("Apartment", populatedNotes!!.findHouse(5)!!.houseCategory)
             assertEquals(197.500, populatedNotes!!.findHouse(5)!!.houseCost)
@@ -221,7 +217,7 @@ class HouseAPITest {
             assertEquals(2.5, populatedNotes!!.findHouse(5)!!.numberOfBathrooms)
             assertEquals(2000, populatedNotes!!.findHouse(5)!!.houseSqFoot)
 
-            //update note 6 with new information and ensure contents updated successfully
+            // update note 6 with new information and ensure contents updated successfully
             assertTrue(
                 populatedNotes!!.updateHouse(
                     5,
@@ -231,8 +227,6 @@ class HouseAPITest {
             assertEquals(200.000, populatedNotes!!.findHouse(5)!!.houseCost)
             assertEquals("Tipperary", populatedNotes!!.findHouse(5)!!.houseLocation)
             assertEquals(1980, populatedNotes!!.findHouse(5)!!.houseSqFoot)
-
-
         }
     }
 
@@ -245,11 +239,11 @@ class HouseAPITest {
             val storingHouses = HouseAPI(XMLSerializer(File("houses.xml")))
             storingHouses.store()
 
-            //Loading the empty houses.xml file into a new object
+            // Loading the empty houses.xml file into a new object
             val loadedHouses = HouseAPI(XMLSerializer(File("houses.xml")))
             loadedHouses.load()
 
-            //Comparing the source of the notes (storingNotes) with the XML loaded notes (loadedNotes)
+            // Comparing the source of the notes (storingNotes) with the XML loaded notes (loadedNotes)
             assertEquals(0, storingHouses.numberOfHouses())
             assertEquals(0, loadedHouses.numberOfHouses())
             assertEquals(storingHouses.numberOfHouses(), loadedHouses.numberOfHouses())
@@ -264,11 +258,11 @@ class HouseAPITest {
             storingHouses.add(threeStorey!!)
             storingHouses.store()
 
-            //Loading notes.xml into a different collection
+            // Loading notes.xml into a different collection
             val loadedHouses = HouseAPI(XMLSerializer(File("houses.xml")))
             loadedHouses.load()
 
-            //Comparing the source of the Houses (storingHouses) with the XML loaded Houses (loadedHouses)
+            // Comparing the source of the Houses (storingHouses) with the XML loaded Houses (loadedHouses)
             assertEquals(3, storingHouses.numberOfHouses())
             assertEquals(3, loadedHouses.numberOfHouses())
             assertEquals(storingHouses.numberOfHouses(), loadedHouses.numberOfHouses())
@@ -283,11 +277,11 @@ class HouseAPITest {
             val storingHouses = HouseAPI(JSONSerializer(File("houses.json")))
             storingHouses.store()
 
-            //Loading the empty houses.json file into a new object
+            // Loading the empty houses.json file into a new object
             val loadedHouses = HouseAPI(JSONSerializer(File("houses.json")))
             loadedHouses.load()
 
-            //Comparing the source of the Houses (storingHouses) with the json loaded Houses (loadedHouses)
+            // Comparing the source of the Houses (storingHouses) with the json loaded Houses (loadedHouses)
             assertEquals(0, storingHouses.numberOfHouses())
             assertEquals(0, loadedHouses.numberOfHouses())
             assertEquals(storingHouses.numberOfHouses(), loadedHouses.numberOfHouses())
@@ -302,11 +296,11 @@ class HouseAPITest {
             storingHouses.add(threeStorey!!)
             storingHouses.store()
 
-            //Loading Houses.json into a different collection
+            // Loading Houses.json into a different collection
             val loadedHouses = HouseAPI(JSONSerializer(File("houses.json")))
             loadedHouses.load()
 
-            //Comparing the source of the Houses (storingHouses) with the json loaded Houses (loadedHouses)
+            // Comparing the source of the Houses (storingHouses) with the json loaded Houses (loadedHouses)
             assertEquals(3, storingHouses.numberOfHouses())
             assertEquals(3, loadedHouses.numberOfHouses())
             assertEquals(storingHouses.numberOfHouses(), loadedHouses.numberOfHouses())
@@ -315,17 +309,18 @@ class HouseAPITest {
             assertEquals(storingHouses.findHouse(2), loadedHouses.findHouse(2))
         }
 
+        /*       YAML SERIALIZER TESTING
         @Test
         fun `saving and loading an empty collection in YAML doesn't crash app`() {
             // Saving an empty houses.yaml file.
-            val storingHouses = HouseAPI(JSONSerializer(File("houses.yaml")))
+            val storingHouses = HouseAPI(YAMLSerializer(File("houses.yaml")))
             storingHouses.store()
 
-            //Loading the empty houses.yaml file into a new object
-            val loadedHouses = HouseAPI(JSONSerializer(File("houses.yaml")))
+            // Loading the empty houses.yaml file into a new object
+            val loadedHouses = HouseAPI(YAMLSerializer(File("houses.yaml")))
             loadedHouses.load()
 
-            //Comparing the source of the Houses (storingHouses) with the yaml  loaded Houses (loadedHouses)
+            // Comparing the source of the Houses (storingHouses) with the yaml  loaded Houses (loadedHouses)
             assertEquals(0, storingHouses.numberOfHouses())
             assertEquals(0, loadedHouses.numberOfHouses())
             assertEquals(storingHouses.numberOfHouses(), loadedHouses.numberOfHouses())
@@ -334,17 +329,17 @@ class HouseAPITest {
         @Test
         fun `saving and loading an loaded collection in YAML doesn't loose data`() {
             // Storing 3 notes to the houses.yaml file.
-            val storingHouses = HouseAPI(JSONSerializer(File("houses.yaml")))
+            val storingHouses = HouseAPI(YAMLSerializer(File("houses.yaml")))
             storingHouses.add(bungalow!!)
             storingHouses.add(twoStorey!!)
             storingHouses.add(threeStorey!!)
             storingHouses.store()
 
-            //Loading Houses.yaml  into a different collection
-            val loadedHouses = HouseAPI(JSONSerializer(File("houses.yaml")))
+            // Loading Houses.yaml  into a different collection
+            val loadedHouses = HouseAPI(YAMLSerializer(File("houses.yaml")))
             loadedHouses.load()
 
-            //Comparing the source of the Houses (storingHouses) with the yaml loaded Houses (loadedHouses)
+            // Comparing the source of the Houses (storingHouses) with the yaml loaded Houses (loadedHouses)
             assertEquals(3, storingHouses.numberOfHouses())
             assertEquals(3, loadedHouses.numberOfHouses())
             assertEquals(storingHouses.numberOfHouses(), loadedHouses.numberOfHouses())
@@ -376,68 +371,43 @@ class HouseAPITest {
             assertTrue(populatedNotes!!.findHouse(2)!!.isSold)
         }
     }
+*/
+        @Nested
+        inner class SearchMethods {
 
-    @Nested
-    inner class SearchMethods {
+            @Test
+            fun `search notes by category returns no houses when no houses with that category exist`() {
+                // Searching a populated collection for a category that doesn't exist.
+                assertEquals(6, populatedNotes!!.numberOfHouses())
+                val searchResults = populatedNotes!!.searchByCategory("no houses found")
+                assertTrue(searchResults.isEmpty())
 
-        @Test
-        fun `search notes by category returns no houses when no houses with that category exist`() {
-            //Searching a populated collection for a category that doesn't exist.
-            assertEquals(6, populatedNotes!!.numberOfHouses())
-            val searchResults = populatedNotes!!.searchByCategory("no houses found")
-            assertTrue(searchResults.isEmpty())
+                // Searching an empty collection
+                assertEquals(0, emptyNotes!!.numberOfHouses())
+                assertTrue(emptyNotes!!.searchByCategory("").isEmpty())
+            }
 
-            //Searching an empty collection
-            assertEquals(0, emptyNotes!!.numberOfHouses())
-            assertTrue(emptyNotes!!.searchByCategory("").isEmpty())
-        }
+            @Test
+            fun `search houses by category returns Houses when Houses with that category exist`() {
+                assertEquals(6, populatedNotes!!.numberOfHouses())
 
-        @Test
-        fun `search houses by category returns Houses when Houses with that category exist`() {
-            assertEquals(6, populatedNotes!!.numberOfHouses())
+                // Searching a populated collection for a full category that exists (case matches exactly)
+                var searchResults = populatedNotes!!.searchByCategory("Semi-Detached")
+                assertTrue(searchResults.contains("Semi-Detached"))
+                assertFalse(searchResults.contains("Studio"))
 
-            //Searching a populated collection for a full category that exists (case matches exactly)
-            var searchResults = populatedNotes!!.searchByCategory("Semi-Detached")
-            assertTrue(searchResults.contains("Semi-Detached"))
-            assertFalse(searchResults.contains("Studio"))
+                // Searching a populated collection for a partial category that exists (case matches exactly)
+                searchResults = populatedNotes!!.searchByCategory("Storey")
+                assertTrue(searchResults.contains("Two-Storey"))
+                assertTrue(searchResults.contains("Three-Storey"))
+                assertFalse(searchResults.contains("Apartment"))
 
-            //Searching a populated collection for a partial category that exists (case matches exactly)
-            searchResults = populatedNotes!!.searchByCategory("Storey")
-            assertTrue(searchResults.contains("Two-Storey"))
-            assertTrue(searchResults.contains("Three-Storey"))
-            assertFalse(searchResults.contains("Apartment"))
-
-            //Searching a populated collection for a partial category that exists (case doesn't match)
-            searchResults = populatedNotes!!.searchByCategory("sToReY")
-            assertTrue(searchResults.contains("Two-Storey"))
-            assertTrue(searchResults.contains("Three-Storey"))
-            assertFalse(searchResults.contains("Apartment"))
+                // Searching a populated collection for a partial category that exists (case doesn't match)
+                searchResults = populatedNotes!!.searchByCategory("sToReY")
+                assertTrue(searchResults.contains("Two-Storey"))
+                assertTrue(searchResults.contains("Three-Storey"))
+                assertFalse(searchResults.contains("Apartment"))
+            }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
-
-

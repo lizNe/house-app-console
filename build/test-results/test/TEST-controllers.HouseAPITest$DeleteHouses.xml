@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="controllers.HouseAPITest$DeleteHouses" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-04-30T19:03:18" hostname="LAPTOP-JCT7DJ1T" time="0.006">
+  <properties/>
+  <testcase name="deleting a house that exists delete and returns deleted object()" classname="controllers.HouseAPITest$DeleteHouses" time="0.002"/>
+  <testcase name="deleting a House that does not exist, returns null()" classname="controllers.HouseAPITest$DeleteHouses" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

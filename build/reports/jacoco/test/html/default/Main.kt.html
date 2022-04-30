@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">en-house-app</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Main.kt</span></div><h1>Main.kt</h1><pre class="source lang-java linenums">import controllers.HouseAPI
+import models.House
+import mu.KotlinLogging
+import persistence.XMLSerializer
+import utilities.HouseUtilities
+import utilities.HouseUtilities.isValidCategory
+import utilities.ScannerInput.readNextDouble
+import utilities.ScannerInput.readNextInt
+import utilities.ScannerInput.readNextLine
+import java.io.File
+
+// Used to allow you to console log information to the console
+<span class="nc" id="L13">private val logger = KotlinLogging.logger {}</span>
+
+<span class="nc" id="L15">private val houseAPI = HouseAPI(XMLSerializer(File(&quot;houses.xml&quot;)))</span>
+
+// private val houseAPI = HouseAPI(JSONSerializer(File(&quot;houses.json&quot;)))
+// private val houseAPI = HouseAPI(YAMLSerializer(File(&quot;houses.yaml&quot;)))
+
+// Will run the function runMenu() starting the entire application
+fun main() {
+<span class="nc" id="L22">    runMenu()</span>
+<span class="nc" id="L23">}</span>
+
+fun runMenu() {
+
+    do {
+<span class="nc bnc" id="L28" title="All 12 branches missed.">        when (val option = mainMenu()) {</span>
+<span class="nc" id="L29">            1 -&gt; addHouse()</span>
+<span class="nc" id="L30">            2 -&gt; listHouses()</span>
+<span class="nc" id="L31">            3 -&gt; updateHouse()</span>
+<span class="nc" id="L32">            4 -&gt; deleteHouse()</span>
+<span class="nc" id="L33">            5 -&gt; houseToBeSold()</span>
+<span class="nc" id="L34">            6 -&gt; searchHouses()</span>
+<span class="nc" id="L35">            7 -&gt; listByBedrooms()</span>
+<span class="nc" id="L36">            8 -&gt; listByBathrooms()</span>
+<span class="nc" id="L37">            9 -&gt; save()</span>
+<span class="nc" id="L38">            10 -&gt; load()</span>
+<span class="nc" id="L39">            0 -&gt; exitApp()</span>
+<span class="nc" id="L40">            else -&gt; println(&quot;Invalid option entered: $option&quot;)</span>
+        }
+<span class="nc" id="L42">    } while (true)</span>
+}
+
+fun mainMenu(): Int {
+<span class="nc" id="L46">    return readNextInt(</span>
+            &quot;&quot;&quot; 
+               ----------------------------------
+               |        Housing Agent App       |
+               ----------------------------------
+                   __________________________
+                  /                          \
+                 /                            \
+                /     Housing Agent Menu       \
+               /                                \
+              /                                  \
+             /____________________________________\
+               |   1) Add a House               |
+               |   2) List all Houses           |
+               |   3) Update a House            |
+               |   4) Delete a House            |
+               |   5) House to Sell             |
+               |--------------------------------|
+               |   6) Search Houses             |
+               |   7) Number of Bedrooms        | 
+               |   8) Number of Bathrooms       |
+               |--------------------------------|
+               |   9) Save Houses               |
+               |   10) Load Houses              |
+               |   0) Exit                      |
+               ----------------------------------
+<span class="nc" id="L72">               ==&gt;&gt; &quot;&quot;&quot;.trimMargin(&quot;&gt;&quot;)</span>
+    )
+}
+
+fun addHouse() {
+<span class="nc" id="L77">    logger.info { &quot;addHouse() function invoked&quot; }</span>
+<span class="nc" id="L78">    var houseCategory = readNextLine(&quot;Enter the category of the house:\nBungalow, Detached, Semi-Detached, Two-Storey, Three-Storey, Apartment, Studio:  &quot;)</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">    while (!isValidCategory(houseCategory)) {</span>
+<span class="nc" id="L80">        houseCategory = readNextLine(&quot;Please enter a valid Category&quot;)</span>
+    }
+<span class="nc" id="L82">    val houseCost = readNextDouble(&quot;Enter the cost of the house: &quot;)</span>
+<span class="nc" id="L83">    val houseLocation = readNextLine(&quot;Enter the location of the house: &quot;)</span>
+<span class="nc" id="L84">    val isAvailableFrom = readNextLine(&quot;Enter the dates in which the house is available for viewing: &quot;)</span>
+<span class="nc" id="L85">    val numberOfBedrooms = readNextInt(&quot;Enter the number of bedrooms in the house: &quot;)</span>
+<span class="nc" id="L86">    val numberOfBathrooms = readNextDouble(&quot;Enter the number of bathrooms in the house: &quot;)</span>
+<span class="nc" id="L87">    val houseSqFoot = readNextInt(&quot;Enter the square footage of the house: &quot;)</span>
+<span class="nc" id="L88">    val isAdded = houseAPI.add(House(houseCategory, houseCost, houseLocation, isAvailableFrom, false, numberOfBedrooms, numberOfBathrooms, houseSqFoot))</span>
+
+<span class="nc bnc" id="L90" title="All 2 branches missed.">    if (isAdded) {</span>
+<span class="nc" id="L91">        println(&quot;Add Successful&quot;)</span>
+    } else {
+<span class="nc" id="L93">        println(&quot;Add Failed&quot;)</span>
+    }
+<span class="nc" id="L95">}</span>
+
+fun listHouses() {
+<span class="nc bnc" id="L98" title="All 2 branches missed.">    if (houseAPI.numberOfHouses() &gt; 0) {</span>
+<span class="nc" id="L99">        val option = readNextInt(</span>
+            &quot;&quot;&quot;
+               --------------------------------
+               |   1) View All Houses          |
+               |   2) View Sold Houses         |
+               |   3) View unSold Houses       |
+               --------------------------------
+<span class="nc" id="L106">               ==&gt;&gt; &quot;&quot;&quot;.trimMargin(&quot;&gt;&quot;)</span>
+        )
+
+<span class="nc bnc" id="L109" title="All 4 branches missed.">        when (option) {</span>
+<span class="nc" id="L110">            1 -&gt; listAllHouses()</span>
+<span class="nc" id="L111">            2 -&gt; listSoldHouses()</span>
+<span class="nc" id="L112">            3 -&gt; listNotSoldHouses()</span>
+<span class="nc" id="L113">            else -&gt; println(&quot;Invalid option entered: $option&quot;)</span>
+        }
+    } else {
+<span class="nc" id="L116">        println(&quot;Option Invalid - No houses stored&quot;)</span>
+    }
+<span class="nc" id="L118">}</span>
+
+fun updateHouse() {
+<span class="nc" id="L121">    listHouses()</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">    if (houseAPI.numberOfHouses() &gt; 0) {</span>
+        // only ask the user to choose the house if the house exist
+<span class="nc" id="L124">        val indexToUpdate = readNextInt(&quot;Enter the index of the house you want to update: &quot;)</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">        if (HouseUtilities.isValidIndex(indexToUpdate)) {</span>
+<span class="nc" id="L126">            val houseCategory = readNextLine(&quot;Enter the category of the house to update: &quot;)</span>
+<span class="nc" id="L127">            val houseCost = readNextDouble(&quot;Enter the cost of the house to update: &quot;)</span>
+<span class="nc" id="L128">            val houseLocation = readNextLine(&quot;Enter the location of the house to update: &quot;)</span>
+<span class="nc" id="L129">            val isAvailableFrom = readNextLine(&quot;Enter the dates in which the house is available for viewing to update: &quot;)</span>
+<span class="nc" id="L130">            val numberOfBedrooms = readNextInt(&quot;Enter the number of bedrooms in the house to update: &quot;)</span>
+<span class="nc" id="L131">            val numberOfBathrooms = readNextDouble(&quot;Enter the number of bathrooms in the house to update: &quot;)</span>
+<span class="nc" id="L132">            val houseSqFoot = readNextInt(&quot;Enter the square footage of the house to update: &quot;)</span>
+
+            // pass the index of the house and the new house details to HouseAPI for updating and check for success.
+            // To get the Boolean value in this constructor you have to type either true or false first and then the field will appear as below
+<span class="nc bnc" id="L136" title="All 2 branches missed.">            if (houseAPI.updateHouse(indexToUpdate, House(houseCategory, houseCost, houseLocation, isAvailableFrom, false, numberOfBedrooms, numberOfBathrooms, houseSqFoot))) {</span>
+<span class="nc" id="L137">                println(&quot;Update Successful&quot;)</span>
+            } else {
+<span class="nc" id="L139">                println(&quot;Update Failed&quot;)</span>
+            }
+        } else {
+<span class="nc" id="L142">            println(&quot;There is no houses for this index number&quot;)</span>
+        }
+    }
+<span class="nc" id="L145">}</span>
+
+// only ask the user to choose the note to delete if notes exist
+// pass the index of the note to NoteAPI for deleting and check for success.
+fun deleteHouse() {
+<span class="nc" id="L150">    listHouses()</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">    if (houseAPI.numberOfHouses()&gt; 0) {</span>
+<span class="nc" id="L152">        val indexToDelete = readNextInt(&quot;Enter the index of the house to delete: &quot;)</span>
+<span class="nc" id="L153">        val houseToDelete = houseAPI.deleteHouse(indexToDelete)</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">        if (houseToDelete != null) {</span>
+<span class="nc" id="L155">            println(&quot;Delete Successful! Deleted house: ${houseToDelete.houseCategory}&quot;)</span>
+        } else {
+<span class="nc" id="L157">            println(&quot;Delete Not Successful&quot;)</span>
+        }
+    }
+<span class="nc" id="L160">}</span>
+
+fun exitApp() {
+<span class="nc" id="L163">    println(&quot;Exiting the House Agent Application....Goodbye! &quot;)</span>
+<span class="nc" id="L164">}</span>
+
+// Tries to save the save function in houseAPI. A throw catch is used so if the save() function doesn't work then an error will be thrown that is caught by the system to display
+// &quot;Error writing to file: $e&quot; to the user
+fun save() {
+<span class="nc" id="L169">    try {</span>
+<span class="nc" id="L170">        houseAPI.store()</span>
+<span class="nc" id="L171">    } catch (e: Exception) {</span>
+<span class="nc" id="L172">        System.err.println(&quot;Error writing to file: $e&quot;)</span>
+    }
+<span class="nc" id="L174">}</span>
+
+// Tries to load the load function in noteAPI. A throw catch is used so if the load() fucntion doesnt work then an error will be thrown that is caught by the system to display
+// &quot;Error reading from file: $e&quot; to the user
+fun load() {
+<span class="nc" id="L179">    try {</span>
+<span class="nc" id="L180">        houseAPI.load()</span>
+<span class="nc" id="L181">    } catch (e: Exception) {</span>
+<span class="nc" id="L182">        System.err.println(&quot;Error reading from file: $e&quot;)</span>
+    }
+<span class="nc" id="L184">}</span>
+
+// only ask the user to choose the note to archive if active notes exist
+// pass the index of the note to NoteAPI for archiving and check for success.
+// like archive note it will say the house is SOLD
+fun houseToBeSold() {
+<span class="nc" id="L190">    println(&quot;Sold Houses Inventory&quot;)</span>
+<span class="nc" id="L191">    listSoldHouses()</span>
+<span class="nc bnc" id="L192" title="All 2 branches missed.">    if (houseAPI.numberOfSoldHouses()&gt; 0) {</span>
+<span class="nc" id="L193">        val indexToSell = readNextInt(&quot;Enter the index of the house to be confirmed as Sold: &quot;)</span>
+<span class="nc bnc" id="L194" title="All 2 branches missed.">        if (houseAPI.houseToBeSold(indexToSell)) {</span>
+<span class="nc" id="L195">            println(&quot;Sell Successful&quot;)</span>
+        } else {
+<span class="nc" id="L197">            println(&quot;Sell Not Successful&quot;)</span>
+        }
+    }
+<span class="nc" id="L200">}</span>
+
+fun searchHouses() {
+<span class="nc" id="L203">    var searchCategory = readNextLine(&quot;Enter the category to search by: \n&quot; +</span>
+            &quot;Bungalow, Detached, Semi-Detached, Two-Storey, Three-Storey, Apartment, Studio:   &quot;)
+<span class="nc bnc" id="L205" title="All 2 branches missed.">    while (!isValidCategory(searchCategory)) {</span>
+<span class="nc" id="L206">        searchCategory = readNextLine(&quot;Please enter a valid Category&quot;)</span>
+    }
+<span class="nc" id="L208">    val searchResults = houseAPI.searchByCategory(searchCategory)</span>
+<span class="nc bnc" id="L209" title="All 4 branches missed.">    if (searchResults.isEmpty()) {</span>
+<span class="nc" id="L210">        println(&quot;No Houses Found&quot;)</span>
+    } else {
+<span class="nc" id="L212">        println(searchResults)</span>
+    }
+<span class="nc" id="L214">}</span>
+
+// calls the class houseAPI and calls the function listAllHouses() from this class and will print all the list of houses that are in the system
+fun listAllHouses() {
+<span class="nc" id="L218">    println(houseAPI.listAllHouses())</span>
+<span class="nc" id="L219">}</span>
+
+// calls the class houseAPI and calls the function listSoldHouses() from this class and will print all the archived houses that are in the system
+fun listSoldHouses() {
+<span class="nc" id="L223">    println(houseAPI.listSoldHouses())</span>
+<span class="nc" id="L224">}</span>
+
+fun listNotSoldHouses() {
+<span class="nc" id="L227">    println(houseAPI.listNotSoldHouses())</span>
+<span class="nc" id="L228">}</span>
+
+fun listByBedrooms() {
+<span class="nc" id="L231">    val searchBedrooms = readNextLine(&quot;Enter the number of bedrooms you are looking for: &quot;)</span>
+<span class="nc" id="L232">    val searchResults = houseAPI.searchByBedrooms(searchBedrooms.toInt())</span>
+<span class="nc bnc" id="L233" title="All 4 branches missed.">    if (searchResults.isEmpty()) {</span>
+<span class="nc" id="L234">        println(&quot;No Houses Found&quot;)</span>
+    } else {
+<span class="nc" id="L236">        println(searchResults)</span>
+    }
+<span class="nc" id="L238">}</span>
+
+fun listByBathrooms() {
+<span class="nc" id="L241">    val searchBathrooms = readNextLine(&quot;Enter the number of bathrooms you are looking for: &quot;)</span>
+<span class="nc" id="L242">    val searchResults = houseAPI.searchByBathrooms(searchBathrooms.toDouble())</span>
+<span class="nc bnc" id="L243" title="All 4 branches missed.">    if (searchResults.isEmpty()) {</span>
+<span class="nc" id="L244">        println(&quot;No Houses Found&quot;)</span>
+    } else {
+<span class="nc" id="L246">        println(searchResults)</span>
+    }
+<span class="nc" id="L248">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

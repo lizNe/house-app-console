@@ -1,0 +1,82 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:////PointingToDeclaration/en-house-app/[root]/index.html
+$dokka.location://addHouse/#/PointingToDeclaration/en-house-app/[root]/add-house.html
+$dokka.location://deleteHouse/#/PointingToDeclaration/en-house-app/[root]/delete-house.html
+$dokka.location://exitApp/#/PointingToDeclaration/en-house-app/[root]/exit-app.html
+$dokka.location://houseToBeSold/#/PointingToDeclaration/en-house-app/[root]/house-to-be-sold.html
+$dokka.location://listAllHouses/#/PointingToDeclaration/en-house-app/[root]/list-all-houses.html
+$dokka.location://listHouses/#/PointingToDeclaration/en-house-app/[root]/list-houses.html
+$dokka.location://listNotSoldHouses/#/PointingToDeclaration/en-house-app/[root]/list-not-sold-houses.html
+$dokka.location://listSoldHouses/#/PointingToDeclaration/en-house-app/[root]/list-sold-houses.html
+$dokka.location://load/#/PointingToDeclaration/en-house-app/[root]/load.html
+$dokka.location://main/#kotlin.Array[kotlin.String]/PointingToDeclaration/en-house-app/[root]/main.html
+$dokka.location://mainMenu/#/PointingToDeclaration/en-house-app/[root]/main-menu.html
+$dokka.location://runMenu/#/PointingToDeclaration/en-house-app/[root]/run-menu.html
+$dokka.location://save/#/PointingToDeclaration/en-house-app/[root]/save.html
+$dokka.location://searchHouses/#/PointingToDeclaration/en-house-app/[root]/search-houses.html
+$dokka.location://updateHouse/#/PointingToDeclaration/en-house-app/[root]/update-house.html
+$dokka.location:controllers////PointingToDeclaration/en-house-app/controllers/index.html
+$dokka.location:controllers/HouseAPI///PointingToDeclaration/en-house-app/controllers/-house-a-p-i/index.html
+$dokka.location:controllers/HouseAPI/HouseAPI/#persistence.Serializer/PointingToDeclaration/en-house-app/controllers/-house-a-p-i/-house-a-p-i.html
+$dokka.location:controllers/HouseAPI/add/#models.House/PointingToDeclaration/en-house-app/controllers/-house-a-p-i/add.html
+$dokka.location:controllers/HouseAPI/deleteHouse/#kotlin.Int/PointingToDeclaration/en-house-app/controllers/-house-a-p-i/delete-house.html
+$dokka.location:controllers/HouseAPI/findHouse/#kotlin.Int/PointingToDeclaration/en-house-app/controllers/-house-a-p-i/find-house.html
+$dokka.location:controllers/HouseAPI/formatListString/#kotlin.collections.List[models.House]/PointingToDeclaration/en-house-app/controllers/-house-a-p-i/format-list-string.html
+$dokka.location:controllers/HouseAPI/houseToBeSold/#kotlin.Int/PointingToDeclaration/en-house-app/controllers/-house-a-p-i/house-to-be-sold.html
+$dokka.location:controllers/HouseAPI/listAllHouses/#/PointingToDeclaration/en-house-app/controllers/-house-a-p-i/list-all-houses.html
+$dokka.location:controllers/HouseAPI/listNotSoldHouses/#/PointingToDeclaration/en-house-app/controllers/-house-a-p-i/list-not-sold-houses.html
+$dokka.location:controllers/HouseAPI/listSoldHouses/#/PointingToDeclaration/en-house-app/controllers/-house-a-p-i/list-sold-houses.html
+$dokka.location:controllers/HouseAPI/load/#/PointingToDeclaration/en-house-app/controllers/-house-a-p-i/load.html
+$dokka.location:controllers/HouseAPI/numberOfHouses/#/PointingToDeclaration/en-house-app/controllers/-house-a-p-i/number-of-houses.html
+$dokka.location:controllers/HouseAPI/numberOfNotSoldHouses/#/PointingToDeclaration/en-house-app/controllers/-house-a-p-i/number-of-not-sold-houses.html
+$dokka.location:controllers/HouseAPI/numberOfSoldHouses/#/PointingToDeclaration/en-house-app/controllers/-house-a-p-i/number-of-sold-houses.html
+$dokka.location:controllers/HouseAPI/searchByCategory/#kotlin.String/PointingToDeclaration/en-house-app/controllers/-house-a-p-i/search-by-category.html
+$dokka.location:controllers/HouseAPI/store/#/PointingToDeclaration/en-house-app/controllers/-house-a-p-i/store.html
+$dokka.location:controllers/HouseAPI/updateHouse/#kotlin.Int#models.House?/PointingToDeclaration/en-house-app/controllers/-house-a-p-i/update-house.html
+$dokka.location:models////PointingToDeclaration/en-house-app/models/index.html
+$dokka.location:models/House///PointingToDeclaration/en-house-app/models/-house/index.html
+$dokka.location:models/House/House/#kotlin.String#kotlin.Double#kotlin.String#kotlin.String#kotlin.Boolean#kotlin.Int#kotlin.Double#kotlin.Int/PointingToDeclaration/en-house-app/models/-house/-house.html
+$dokka.location:models/House/houseCategory/#/PointingToDeclaration/en-house-app/models/-house/house-category.html
+$dokka.location:models/House/houseCost/#/PointingToDeclaration/en-house-app/models/-house/house-cost.html
+$dokka.location:models/House/houseLocation/#/PointingToDeclaration/en-house-app/models/-house/house-location.html
+$dokka.location:models/House/houseSqFoot/#/PointingToDeclaration/en-house-app/models/-house/house-sq-foot.html
+$dokka.location:models/House/isAvailableFrom/#/PointingToDeclaration/en-house-app/models/-house/is-available-from.html
+$dokka.location:models/House/isSold/#/PointingToDeclaration/en-house-app/models/-house/is-sold.html
+$dokka.location:models/House/numberOfBathrooms/#/PointingToDeclaration/en-house-app/models/-house/number-of-bathrooms.html
+$dokka.location:models/House/numberOfBedrooms/#/PointingToDeclaration/en-house-app/models/-house/number-of-bedrooms.html
+$dokka.location:persistence////PointingToDeclaration/en-house-app/persistence/index.html
+$dokka.location:persistence/JSONSerializer///PointingToDeclaration/en-house-app/persistence/-j-s-o-n-serializer/index.html
+$dokka.location:persistence/JSONSerializer/JSONSerializer/#java.io.File/PointingToDeclaration/en-house-app/persistence/-j-s-o-n-serializer/-j-s-o-n-serializer.html
+$dokka.location:persistence/JSONSerializer/read/#/PointingToDeclaration/en-house-app/persistence/-j-s-o-n-serializer/read.html
+$dokka.location:persistence/JSONSerializer/write/#kotlin.Any?/PointingToDeclaration/en-house-app/persistence/-j-s-o-n-serializer/write.html
+$dokka.location:persistence/Serializer///PointingToDeclaration/en-house-app/persistence/-serializer/index.html
+$dokka.location:persistence/Serializer/read/#/PointingToDeclaration/en-house-app/persistence/-serializer/read.html
+$dokka.location:persistence/Serializer/write/#kotlin.Any?/PointingToDeclaration/en-house-app/persistence/-serializer/write.html
+$dokka.location:persistence/XMLSerializer///PointingToDeclaration/en-house-app/persistence/-x-m-l-serializer/index.html
+$dokka.location:persistence/XMLSerializer/XMLSerializer/#java.io.File/PointingToDeclaration/en-house-app/persistence/-x-m-l-serializer/-x-m-l-serializer.html
+$dokka.location:persistence/XMLSerializer/read/#/PointingToDeclaration/en-house-app/persistence/-x-m-l-serializer/read.html
+$dokka.location:persistence/XMLSerializer/write/#kotlin.Any?/PointingToDeclaration/en-house-app/persistence/-x-m-l-serializer/write.html
+$dokka.location:persistence/YAMLSerializer///PointingToDeclaration/en-house-app/persistence/-y-a-m-l-serializer/index.html
+$dokka.location:persistence/YAMLSerializer/YAMLSerializer/#java.io.File/PointingToDeclaration/en-house-app/persistence/-y-a-m-l-serializer/-y-a-m-l-serializer.html
+$dokka.location:persistence/YAMLSerializer/read/#/PointingToDeclaration/en-house-app/persistence/-y-a-m-l-serializer/read.html
+$dokka.location:persistence/YAMLSerializer/write/#kotlin.Any?/PointingToDeclaration/en-house-app/persistence/-y-a-m-l-serializer/write.html
+$dokka.location:utilities////PointingToDeclaration/en-house-app/utilities/index.html
+$dokka.location:utilities/HouseUtilities///PointingToDeclaration/en-house-app/utilities/-house-utilities/index.html
+$dokka.location:utilities/HouseUtilities/categories/#/PointingToDeclaration/en-house-app/utilities/-house-utilities/categories.html
+$dokka.location:utilities/HouseUtilities/isValidCategory/#kotlin.String?/PointingToDeclaration/en-house-app/utilities/-house-utilities/is-valid-category.html
+$dokka.location:utilities/HouseUtilities/isValidIndex/#kotlin.Int/PointingToDeclaration/en-house-app/utilities/-house-utilities/is-valid-index.html
+$dokka.location:utilities/HouseUtilities/isValidListIndex/#kotlin.Int#kotlin.collections.List[kotlin.Any]/PointingToDeclaration/en-house-app/utilities/-house-utilities/is-valid-list-index.html
+$dokka.location:utilities/HouseUtilities/validRange/#kotlin.Int#kotlin.Int#kotlin.Int/PointingToDeclaration/en-house-app/utilities/-house-utilities/valid-range.html
+$dokka.location:utils////PointingToDeclaration/en-house-app/utils/index.html
+$dokka.location:utils/ScannerInput///PointingToDeclaration/en-house-app/utils/-scanner-input/index.html
+$dokka.location:utils/ScannerInput/readNextChar/#kotlin.String?/PointingToDeclaration/en-house-app/utils/-scanner-input/read-next-char.html
+$dokka.location:utils/ScannerInput/readNextDouble/#kotlin.String?/PointingToDeclaration/en-house-app/utils/-scanner-input/read-next-double.html
+$dokka.location:utils/ScannerInput/readNextInt/#kotlin.String?/PointingToDeclaration/en-house-app/utils/-scanner-input/read-next-int.html
+$dokka.location:utils/ScannerInput/readNextLine/#kotlin.String?/PointingToDeclaration/en-house-app/utils/-scanner-input/read-next-line.html
+controllers
+models
+persistence
+utilities
+utils
+

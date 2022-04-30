@@ -13,6 +13,7 @@ import java.util.Scanner
  *
  * @author Elizabeth Neary
  * @version 1.0
+ */
 
 object ScannerInput {
     /**

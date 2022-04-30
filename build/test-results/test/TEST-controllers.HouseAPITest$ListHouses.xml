@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="controllers.HouseAPITest$ListHouses" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-04-30T19:03:18" hostname="LAPTOP-JCT7DJ1T" time="0.005">
+  <properties/>
+  <testcase name="listAllHouses returns Houses when ArrayList has houses stored()" classname="controllers.HouseAPITest$ListHouses" time="0.002"/>
+  <testcase name="listAllHouses returns No Houses Stored message when ArrayList is empty()" classname="controllers.HouseAPITest$ListHouses" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

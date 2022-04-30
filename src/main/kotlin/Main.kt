@@ -117,6 +117,7 @@ fun listHouses() {
     }
 }
 
+
 fun updateHouse() {
     listHouses()
     if (houseAPI.numberOfHouses() > 0) {

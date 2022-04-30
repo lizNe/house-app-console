@@ -71,9 +71,6 @@ class HouseAPI(serializerType: Serializer) {
     fun numberOfHouses(): Int {
         return houses.size
     }
-    fun numberOfBedrooms(): Int = houses.count { house: House -> house.numberOfBedrooms }
-
-    fun numberOfBathrooms(): Int = houses.count { house: House -> house.numberOfBathrooms }
 
 // searches for notes by houseCategory and uses the formatListString to print the house in a clean format
     fun searchByCategory(searchString: String) =

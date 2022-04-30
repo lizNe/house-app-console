@@ -44,32 +44,32 @@ fun runMenu() {
 
 fun mainMenu(): Int {
     return readNextInt(
-        """ 
-           ----------------------------------
-           |        Housing Agent App       |
-           ----------------------------------
-               __________________________
-              /                          \
-             /                            \
-            /     Housing Agent Menu       \
-           /                                \
-          /                                  \
-         /____________________________________\
-         > |   1) Add a House               |
-         > |   2) List all Houses           |
-         > |   3) Update a House            |
-         > |   4) Delete a House            |
-         > |   5) House to Sell             |
-         > |--------------------------------|
-         > |   6) Search Houses             |
-         > |   7) Number of Bedrooms        | 
-         > |   8) Number of Bathrooms       |
-         > |--------------------------------|
-         > |   9) Save Houses               |
-         > |   10) Load Houses              |
-         > |   0) Exit                      |
-         > ----------------------------------
-         > ==>> """.trimMargin(">")
+            """ 
+               ----------------------------------
+               |        Housing Agent App       |
+               ----------------------------------
+                   __________________________
+                  /                          \
+                 /                            \
+                /     Housing Agent Menu       \
+               /                                \
+              /                                  \
+             /____________________________________\
+               |   1) Add a House               |
+               |   2) List all Houses           |
+               |   3) Update a House            |
+               |   4) Delete a House            |
+               |   5) House to Sell             |
+               |--------------------------------|
+               |   6) Search Houses             |
+               |   7) Number of Bedrooms        | 
+               |   8) Number of Bathrooms       |
+               |--------------------------------|
+               |   9) Save Houses               |
+               |   10) Load Houses              |
+               |   0) Exit                      |
+               ----------------------------------
+               ==>> """.trimMargin(">")
     )
 }
 
@@ -98,12 +98,12 @@ fun listHouses() {
     if (houseAPI.numberOfHouses() > 0) {
         val option = readNextInt(
             """
-                  > --------------------------------
-                  > |   1) View All Houses          |
-                  > |   2) View Sold Houses         |
-                  > |   3) View unSold Houses       |
-                  > --------------------------------
-         > ==>> """.trimMargin(">")
+               --------------------------------
+               |   1) View All Houses          |
+               |   2) View Sold Houses         |
+               |   3) View unSold Houses       |
+               --------------------------------
+               ==>> """.trimMargin(">")
         )
 
         when (option) {

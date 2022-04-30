@@ -21,6 +21,7 @@ class HouseAPITest {
     private var twoStorey: House? = null
     private var threeStorey: House? = null
     private var apartment: House? = null
+    private var studio: House? = null
     private var populatedNotes: HouseAPI? = HouseAPI(XMLSerializer(File("houses.xml")))
     private var emptyNotes: HouseAPI? = HouseAPI(XMLSerializer(File("houses.xml")))
 
@@ -35,6 +36,7 @@ class HouseAPITest {
         twoStorey = House("Two-Storey", 400.000, "Carlow", " 3rd October 2022", false, 3, 2.5, 1500)
         threeStorey = House("Three-Storey", 750.000, "Kildare", "1st November 2022", false, 5, 4.0, 2700)
         apartment = House("Apartment", 197.500, "Dublin", "31st October 2022", false, 3, 2.5, 2000)
+        studio = House("Studio", 134.090, "Dublin", "20th October 2022", false, 1, 1.0, 358)
 
         // adding 5 Note to the notes api
         populatedNotes!!.add(bungalow!!)
@@ -43,6 +45,7 @@ class HouseAPITest {
         populatedNotes!!.add(twoStorey!!)
         populatedNotes!!.add(threeStorey!!)
         populatedNotes!!.add(apartment!!)
+        populatedNotes!!.add(studio!!)
     }
 
     @AfterEach
@@ -71,9 +74,9 @@ class HouseAPITest {
                 1.0,
                 1094
             )
-            assertEquals(6, populatedNotes!!.numberOfHouses())
-            assertTrue(populatedNotes!!.add(newHouse))
             assertEquals(7, populatedNotes!!.numberOfHouses())
+            assertTrue(populatedNotes!!.add(newHouse))
+            assertEquals(8, populatedNotes!!.numberOfHouses())
             assertEquals(newHouse, populatedNotes!!.findHouse(populatedNotes!!.numberOfHouses() - 1))
         }
 
@@ -107,7 +110,7 @@ class HouseAPITest {
 
         @Test
         fun `listAllHouses returns Houses when ArrayList has houses stored`() {
-            assertEquals(6, populatedNotes!!.numberOfHouses())
+            assertEquals(7, populatedNotes!!.numberOfHouses())
             val housesString = populatedNotes!!.listAllHouses().lowercase()
             assertTrue(housesString.contains("bungalow"))
             assertTrue(housesString.contains("detached"))
@@ -121,7 +124,7 @@ class HouseAPITest {
     // Double Check with lecturer about this . Test runs but only when detached is set to true when it should be false
     @Test
     fun `listNotSoldHouses returns unSold houses when ArrayList has unsold houses stored`() {
-        assertEquals(4, populatedNotes!!.numberOfNotSoldHouses())
+        assertEquals(5, populatedNotes!!.numberOfNotSoldHouses())
         val unSoldHousesString = populatedNotes!!.listNotSoldHouses().lowercase()
         assertFalse(unSoldHousesString.contains("bungalow"))
         assertTrue(unSoldHousesString.contains("detached"))
@@ -167,16 +170,16 @@ class HouseAPITest {
         fun `deleting a House that does not exist, returns null`() {
             assertNull(emptyNotes!!.deleteHouse(0))
             assertNull(populatedNotes!!.deleteHouse(-1))
-            assertNull(populatedNotes!!.deleteHouse(6))
+            assertNull(populatedNotes!!.deleteHouse(7))
         }
 
         @Test
         fun `deleting a house that exists delete and returns deleted object`() {
-            assertEquals(6, populatedNotes!!.numberOfHouses())
+            assertEquals(7, populatedNotes!!.numberOfHouses())
             assertEquals(threeStorey, populatedNotes!!.deleteHouse(4))
-            assertEquals(5, populatedNotes!!.numberOfHouses())
+            assertEquals(6, populatedNotes!!.numberOfHouses())
             assertEquals(bungalow, populatedNotes!!.deleteHouse(0))
-            assertEquals(4, populatedNotes!!.numberOfHouses())
+            assertEquals(5, populatedNotes!!.numberOfHouses())
         }
     }
 
@@ -186,8 +189,8 @@ class HouseAPITest {
         fun `updating a house that does not exist returns false`() {
             assertFalse(
                 populatedNotes!!.updateHouse(
-                    6,
-                    House("Studio", 200.000, "Donegal", "17th July 2022", false, 3, 2.5, 900)
+                    7,
+                    House("Cottage", 200.000, "Donegal", "17th July 2022", false, 3, 2.5, 900)
                 )
             )
             assertFalse(
@@ -379,7 +382,7 @@ class HouseAPITest {
             @Test
             fun `search houses by category returns no houses when no houses with that category exist`() {
                 // Searching a populated collection for a category that doesn't exist.
-                assertEquals(6, populatedNotes!!.numberOfHouses())
+                assertEquals(7, populatedNotes!!.numberOfHouses())
                 val searchResults = populatedNotes!!.searchByCategory("no houses found")
                 assertTrue(searchResults.isEmpty())
 
@@ -390,7 +393,7 @@ class HouseAPITest {
 
             @Test
             fun `search houses by category returns Houses when Houses with that category exist`() {
-                assertEquals(6, populatedNotes!!.numberOfHouses())
+                assertEquals(7, populatedNotes!!.numberOfHouses())
 
                 // Searching a populated collection for a full category that exists (case matches exactly)
                 var searchResults = populatedNotes!!.searchByCategory("Semi-Detached")
@@ -410,39 +413,5 @@ class HouseAPITest {
                 assertFalse(searchResults.contains("Apartment"))
             }
         }
-    @Test
-    fun `list houses by number of bedrooms returns no houses when no houses with that number of bedrooms exist`() {
-        // Searching a populated collection for the number of bedrooms is not available.
-        assertEquals(5, populatedNotes!!.numberOfBedrooms())
-        val searchResults = populatedNotes!!.searchByCategory("no houses found")
-        assertTrue(searchResults.isEmpty())
-
-        // Searching an empty collection
-        assertEquals(0, emptyNotes!!.numberOfHouses())
-        assertTrue(emptyNotes!!.searchByCategory("").isEmpty())
-    }
-
-    @Test
-    fun `search houses by category returns Houses when Houses with that category exist`() {
-        assertEquals(6, populatedNotes!!.numberOfHouses())
-
-        // Searching a populated collection for a full category that exists (case matches exactly)
-        var searchResults = populatedNotes!!.searchByCategory("Semi-Detached")
-        assertTrue(searchResults.contains("Semi-Detached"))
-        assertFalse(searchResults.contains("Studio"))
-
-        // Searching a populated collection for a partial category that exists (case matches exactly)
-        searchResults = populatedNotes!!.searchByCategory("Storey")
-        assertTrue(searchResults.contains("Two-Storey"))
-        assertTrue(searchResults.contains("Three-Storey"))
-        assertFalse(searchResults.contains("Apartment"))
-
-        // Searching a populated collection for a partial category that exists (case doesn't match)
-        searchResults = populatedNotes!!.searchByCategory("sToReY")
-        assertTrue(searchResults.contains("Two-Storey"))
-        assertTrue(searchResults.contains("Three-Storey"))
-        assertFalse(searchResults.contains("Apartment"))
-    }
 }
 
-}

@@ -10,8 +10,8 @@ plugins {
     application
 }
 
-group = "me.lizzz"
-version = "1.0-SNAPSHOT"
+group = "me.lizzie"
+version = "1.0"
 
 repositories {
     mavenCentral()
@@ -56,4 +56,3 @@ tasks.jar {
         configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
     })
 }
-

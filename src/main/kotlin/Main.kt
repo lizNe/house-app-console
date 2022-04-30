@@ -32,8 +32,10 @@ fun runMenu() {
             4 -> deleteHouse()
             5 -> houseToBeSold()
             6 -> searchHouses()
-            7 -> save()
-            8 -> load()
+            7 -> listByBedrooms()
+            8 -> listByBathrooms()
+            9 -> save()
+            10 -> load()
             0 -> exitApp()
             else -> println("Invalid option entered: $option")
         }
@@ -43,10 +45,16 @@ fun runMenu() {
 fun mainMenu(): Int {
     return readNextInt(
         """ 
-         > ----------------------------------
-         > |        Housing Agent App       |
-         > ----------------------------------
-         > |          HOUSE MENU            |
+           ----------------------------------
+           |        Housing Agent App       |
+           ----------------------------------
+               __________________________
+              /                          \
+             /                            \
+            /     Housing Agent Menu       \
+           /                                \
+          /                                  \
+         /____________________________________\
          > |   1) Add a House               |
          > |   2) List all Houses           |
          > |   3) Update a House            |
@@ -54,9 +62,11 @@ fun mainMenu(): Int {
          > |   5) House to Sell             |
          > |--------------------------------|
          > |   6) Search Houses             |
+         > |   7) Number of Bedrooms        | 
+         > |   8) Number of Bathrooms       |
          > |--------------------------------|
-         > |   7) Save Houses               |
-         > |   8) Load Houses               |
+         > |   9) Save Houses               |
+         > |   10) Load Houses              |
          > |   0) Exit                      |
          > ----------------------------------
          > ==>> """.trimMargin(">")
@@ -190,7 +200,11 @@ fun houseToBeSold() {
 }
 
 fun searchHouses() {
-    val searchCategory = readNextLine("Enter the category to search by: ")
+    var searchCategory = readNextLine("Enter the category to search by: \n" +
+            "Bungalow, Detached, Semi-Detached, Two-Storey, Three-Storey, Apartment, Studio:   ")
+    while (!isValidCategory(searchCategory)) {
+        searchCategory = readNextLine("Please enter a valid Category")
+    }
     val searchResults = houseAPI.searchByCategory(searchCategory)
     if (searchResults.isEmpty()) {
         println("No Houses Found")
@@ -211,4 +225,24 @@ fun listSoldHouses() {
 
 fun listNotSoldHouses() {
     println(houseAPI.listNotSoldHouses())
+}
+
+fun listByBedrooms() {
+    val searchBedrooms = readNextLine("Enter the number of bedrooms you are looking for: ")
+    val searchResults = houseAPI.searchByBedrooms(searchBedrooms.toInt())
+    if (searchResults.isEmpty()) {
+        println("No Houses Found")
+    } else {
+        println(searchResults)
+    }
+}
+
+fun listByBathrooms() {
+    val searchBathrooms = readNextLine("Enter the number of bathrooms you are looking for: ")
+    val searchResults = houseAPI.searchByBathrooms(searchBathrooms.toDouble())
+    if (searchResults.isEmpty()) {
+        println("No Houses Found")
+    } else {
+        println(searchResults)
+    }
 }

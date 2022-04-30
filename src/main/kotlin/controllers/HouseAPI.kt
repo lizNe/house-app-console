@@ -62,6 +62,7 @@ class HouseAPI(serializerType: Serializer) {
         if (numberOfSoldHouses() == 0) "No Houses unSold stored"
         else formatListString(houses.filter { house -> !house.isSold })
 
+
 // All number functions for the listing functions
     fun numberOfSoldHouses(): Int = houses.count { house: House -> house.isSold }
 
@@ -70,11 +71,24 @@ class HouseAPI(serializerType: Serializer) {
     fun numberOfHouses(): Int {
         return houses.size
     }
+    fun numberOfBedrooms(): Int = houses.count { house: House -> house.numberOfBedrooms }
+
+    fun numberOfBathrooms(): Int = houses.count { house: House -> house.numberOfBathrooms }
 
 // searches for notes by houseCategory and uses the formatListString to print the house in a clean format
     fun searchByCategory(searchString: String) =
         formatListString(
             houses.filter { house -> house.houseCategory.contains(searchString, ignoreCase = true) }
+        )
+
+    fun searchByBedrooms(searchString: Int) =
+        formatListString(
+            houses.filter { house -> house.numberOfBedrooms == searchString }
+        )
+
+    fun searchByBathrooms(searchString: Double) =
+        formatListString(
+            houses.filter { house -> house.numberOfBathrooms == searchString }
         )
 
     fun findHouse(index: Int): House? {
@@ -94,7 +108,7 @@ class HouseAPI(serializerType: Serializer) {
         serializer.write(houses)
     }
 
-//    This function will format the way the string is printed to te screen so that it is cleaner rather than adding code to format your strings this method is called instead
+//    This function will format the way the string is printed to the screen so that it is cleaner rather than adding code to format your strings this method is called instead
     fun formatListString(housesToFormat: List<House>): String =
         housesToFormat.joinToString(separator = "\n") { house -> houses.indexOf(house).toString() + ": " + house.toString() }
 }

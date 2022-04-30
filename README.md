@@ -19,7 +19,7 @@ Once the program starts the user is introduced to a skelton menu as shown below 
   <h2 align="center">
   Skeleton Menu and Sub-Menu for List All Houses 
 </h2>                                                             
-  <img src="https://user-images.githubusercontent.com/78036222/166113812-9a5e3aa9-1f22-46d6-9d25-7e4cc7c7793b.jpg" height="350" width="470" align="left"/><img src="https://user-images.githubusercontent.com/78036222/166114316-b01bca95-4904-4c96-95f4-de411d9458ba.jpg" height="350" width="460" align="right"/> 
+  <img src="https://user-images.githubusercontent.com/78036222/166113812-9a5e3aa9-1f22-46d6-9d25-7e4cc7c7793b.jpg" height="350" width="300" align="left"/><img src="https://user-images.githubusercontent.com/78036222/166114316-b01bca95-4904-4c96-95f4-de411d9458ba.jpg" height="350" width="300" align="right"/> 
   <br>
   <br>
   <br>
